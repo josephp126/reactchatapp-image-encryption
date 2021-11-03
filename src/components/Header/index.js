@@ -4,7 +4,7 @@ import ThemeToggle from '../../assets/theme/themetoggle'
 function Header() {
   return (
     <div>
-      <ThemeToggle />
+      {/* <ThemeToggle /> */}
       Header
     </div>
   )
