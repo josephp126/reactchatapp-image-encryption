@@ -11,11 +11,8 @@ export default (props) => {
       <Header {...props} />
       <div class="layout-content">
         <Switch>
-          <Route
-            path="/auth/signUp"
-            component={(props) => <SingIn {...props} />}
-          ></Route>
-          <Redirect to="/" />
+          <Route path="/login" component={(props) => <SingIn {...props} />}></Route>
+          <Redirect to="/login" />
         </Switch>
       </div>
       <Footer {...props} />

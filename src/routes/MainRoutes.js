@@ -12,10 +12,10 @@ export default (props) => {
       <div class="layout-content">
         <Switch>
           <Route
-            path="/auth/signUp"
+            path="/home"
             component={(props) => <Home {...props} />}
           ></Route>
-          <Redirect to="/" />
+          <Redirect to="/home"/>
         </Switch>
       </div>
       <Footer {...props} />

@@ -5,28 +5,28 @@ import MainRoutes from "./MainRoutes";
 
 const Routes = () => {
   const {
-    authState: { isLogin },
+    authState: {isLogin},
   } = useContext(GlobalContext);
   const [isAuthenticated, setIsAuthenticated] = useState(isLogin);
   const [authLoaded, setAuthLoaded] = useState(false);
 
-  const getUser = async () => {
+  const getUser = () => {
     try {
-      const user = await localStorage.getItem("user");
+      const user = localStorage.getItem("user");
 
       if (user) {
         setAuthLoaded(true);
-        setIsAuthenticated(true);
+        // setIsAuthenticated(true);
       } else {
         setAuthLoaded(true);
-        setIsAuthenticated(false);
+        // setIsAuthenticated(false);
       }
     } catch (error) {}
   };
 
   useEffect(() => {
     getUser();
-  }, [isLogin]);
+  }, [isLogin, isAuthenticated]);
 
   return (
     <>
