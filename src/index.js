@@ -1,13 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import GlobalProvider from './context/Provider'
+import { BrowserRouter as Router, Switch } from 'react-router-dom'
+import Routes from './routes';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <GlobalProvider>
+    <React.StrictMode>
+      <Router>
+        <Switch>
+          <Routes />
+        </Switch>
+      </Router>
+    </React.StrictMode>
+  </GlobalProvider>,
   document.getElementById('root')
 );
 
