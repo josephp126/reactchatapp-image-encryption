@@ -3,6 +3,30 @@ import reset from "styled-reset";
 
 export const GlobalStyle = createGlobalStyle`
 	${reset}
+  @media (min-width: 578px) {
+    /** Mozilla scrollbar*/
+    * {
+      scrollbar-color: #CCC !important;
+      scrollbar-width: thin !important;
+    }
+    /** Scrollbar for browser based on webkit */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 0px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #CCCCCC;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #AFAFAF;
+    }
+    ::-webkit-scrollbar-thumb:active {
+      background: #6b6b6b;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(204, 204, 204, 0.3);
+    }
+  }
   * { padding: 0; margin: 0; }
   html, #root{
     width: 100%;
@@ -60,6 +84,21 @@ export const GlobalStyle = createGlobalStyle`
     margin-right: 10px;
     font-weight: bold;
   }
+  .chat-tab-container{
+    height: calc(100% - 104px);
+  }
+  .chat-swapable-container{
+    height: calc(100% - 72px);
+  }
+  .chat-swapable-container .react-swipeable-view-container{
+    height: 100%;
+  }
+  .chat-contact-detail-con{
+    width: calc(100% - 56px);
+  }
+  .chat-list-last-message-con{
+    width: calc(100% - 50px);
+  }
 
   @media only screen and (max-width: 600px){
     main.layout-content{
@@ -67,29 +106,6 @@ export const GlobalStyle = createGlobalStyle`
       overflow: auto
     } 
   }
+
   
-  @media (min-width: 578px) {
-    /** Mozilla scrollbar*/
-    * {
-      scrollbar-color: #CCC !important;
-      scrollbar-width: thin !important;
-    }
-    /** Scrollbar for browser based on webkit */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 0px;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #CCCCCC;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #AFAFAF;
-    }
-    ::-webkit-scrollbar-thumb:active {
-      background: #6b6b6b;
-    }
-    ::-webkit-scrollbar-track {
-      background: rgba(204, 204, 204, 0.3);
-    }
-  }
 `;
