@@ -25,16 +25,18 @@ function Home() {
           <Box className="h-100" pl={2}>
             <Box className="w-100 h-100 primaryBg" borderRadius={2}>
               <Box
-                className="w-100"
-                sx={{ px: 1, py: 3 }}
+                className=""
+                sx={{ px: 2, py: 3 }}
                 alignItems="center"
                 display="flex"
               >
-                <Box>
+                <Box className="w-100">
                   <TextField
                     label="Search..."
-                    variant="standard"
+                    color="info"
                     fullWidth
+                    className="primaryFontColor"
+                    margin="none"
                     value={searchText}
                     onChange={(e) => {
                       setSearchText(e.target.value);
@@ -56,7 +58,14 @@ function Home() {
                   />
                 </Box>
                 <Box sx={{ pl: 4 }}>
-                  <SettingsInputComponentIcon />
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={_onSearchMessage}
+                    onMouseDown={_onMouseDownSearch}
+                    edge="end"
+                  >
+                    <SettingsInputComponentIcon className="primaryFontColor"/>
+                  </IconButton>
                 </Box>
               </Box>
             </Box>

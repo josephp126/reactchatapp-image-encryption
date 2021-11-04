@@ -9,7 +9,7 @@ export default (props) => {
   return (
     <>
       <Header {...props} />
-      <main class="layout-content">
+      <main className="layout-content">
         <Switch>
           <Route
             path="/home"
