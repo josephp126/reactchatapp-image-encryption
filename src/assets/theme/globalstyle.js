@@ -3,6 +3,7 @@ import reset from "styled-reset";
 
 export const GlobalStyle = createGlobalStyle`
 	${reset}
+  * { padding: 0; margin: 0; }
   html, #root{
     width: 100%;
     height: 100%;
@@ -21,6 +22,12 @@ export const GlobalStyle = createGlobalStyle`
   .h-100{
     height: 100%!important;
   }
+  .pl-2{
+    padding-left: 12px!important;
+  }
+  .pl-3{
+    padding-left: 16px!important;
+  }
   .text-center{
     text-align:center!important;
   }
@@ -32,7 +39,11 @@ export const GlobalStyle = createGlobalStyle`
   }
   main.layout-content{
     height: calc(100vh - 128px);
-    overflow: auto
+    overflow: auto;
+    background: ${({ theme }) => theme.mainPageBg};
+  }
+  .primaryBg{
+    background: ${({ theme }) => theme.bgColor};
   }
   .logo-img{
     width: 170px

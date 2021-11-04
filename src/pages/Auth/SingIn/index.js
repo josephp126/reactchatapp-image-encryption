@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Grid,
   Box,
@@ -13,8 +13,11 @@ import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import { logo } from "../../../assets/images/image";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
+import TempLoginSuccess from "../../../context/actions/auth/TempLoginSuccess";
+import { GlobalContext } from "../../../context/Provider";
 
 function SingIn() {
+  const { authDispatch } = useContext(GlobalContext);
   const [email, setEmail] = useState("");
   const [isEmailError, setIsEmailError] = useState(false);
   const [password, setPassword] = useState("");
@@ -31,6 +34,8 @@ function SingIn() {
 
   const _onLogin = () => {
     console.log("login button clicked");
+    console.log(email, password)
+    TempLoginSuccess({})(authDispatch);
   };
 
   return (

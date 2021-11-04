@@ -1,11 +1,13 @@
 export const lightTheme = {
-  bgColor: "#F8F7F4",
+  bgColor: "#FDFDFD",
   textColor: "#31302E",
+  mainPageBg: "#F4F4F4",
   borderColor: "1px solid #EAEAEA",
 };
 
 export const darkTheme = {
-  bgColor: "#1E1E22",
+  bgColor: "#323232",
+  mainPageBg: "#1F1F1F",
   textColor: "#CCCCCC",
   borderColor: "1px solid #2C2D33",
 };

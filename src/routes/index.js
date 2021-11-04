@@ -26,6 +26,12 @@ const Routes = () => {
 
   useEffect(() => {
     getUser();
+    if(isLogin === true){
+      setIsAuthenticated(true)
+    }
+    else{
+      setIsAuthenticated(false)
+    }
   }, [isLogin, isAuthenticated]);
 
   return (
