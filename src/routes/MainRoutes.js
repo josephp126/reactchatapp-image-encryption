@@ -9,7 +9,7 @@ export default (props) => {
   return (
     <>
       <Header {...props} />
-      <div class="layout-content">
+      <main class="layout-content">
         <Switch>
           <Route
             path="/home"
@@ -17,7 +17,7 @@ export default (props) => {
           ></Route>
           <Redirect to="/home"/>
         </Switch>
-      </div>
+      </main>
       <Footer {...props} />
     </>
   );

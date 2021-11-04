@@ -3,18 +3,20 @@ import React from "react";
 import { Redirect, Route, Switch } from "react-router";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import Register from "../pages/Auth/Register";
 import SingIn from "../pages/Auth/SingIn";
 
 export default (props) => {
   return (
     <>
       <Header {...props} />
-      <div class="layout-content">
+      <main class="layout-content">
         <Switch>
           <Route path="/login" component={(props) => <SingIn {...props} />}></Route>
+          <Route path="/register" component={(props) => <Register {...props} />}></Route>
           <Redirect to="/login" />
         </Switch>
-      </div>
+      </main>
       <Footer {...props} />
     </>
   );
