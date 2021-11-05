@@ -100,6 +100,26 @@ export const GlobalStyle = createGlobalStyle`
     width: calc(100% - 50px);
   }
 
+  .chat-detail-message-con{
+    }
+  .chat-detail-message-send-con{
+    
+  }
+  .message-receive-con{
+    padding: 10px;
+    background: ${({ theme }) => theme.mainPageBg};
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+  .message-send-con{
+    padding: 10px;
+    background: ${({ theme }) => theme.chatSendBg};
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+
   @media only screen and (max-width: 600px){
     main.layout-content{
       height: calc(100vh - 118px);

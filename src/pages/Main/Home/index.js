@@ -15,17 +15,35 @@ import {
 } from "@mui/material";
 import { useTheme, styled } from "@mui/material/styles";
 import PropTypes from "prop-types";
+import BadgeUnstyled from "@mui/core/BadgeUnstyled";
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import SettingsInputComponentIcon from "@mui/icons-material/SettingsInputComponent";
 import SearchIcon from "@mui/icons-material/Search";
 import ChatIcon from "@mui/icons-material/Chat";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 import SettingsIcon from "@mui/icons-material/Settings";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import SwipeableViews from "react-swipeable-views";
-import { user1, user2, user3, user4, user5, user6, user7, user8, user9 } from "../../../assets/images/image";
+import {
+  user1,
+  user2,
+  user3,
+  user4,
+  user5,
+  user6,
+  user7,
+  user8,
+  user9,
+  userPhoto,
+} from "../../../assets/images/image";
 
 function Home() {
   const theme = useTheme();
   const [searchText, setSearchText] = useState("");
+  const [message, setMessage] = useState("");
   const [tabValue, setTabValue] = useState(0);
 
   const _onSearchMessage = () => {};
@@ -72,78 +90,121 @@ function Home() {
     value: PropTypes.number.isRequired,
   };
 
+  const _onToggleEmoji = () => {
+    console.log("clicked toggle emoji icon")
+  }
+
+  const _onMouseDownToggleEmoji = (e) => {
+    e.preventDefault();
+  };
+
+  const _onUploadImage = () => {
+    console.log("clicked Upload Image icon")
+  }
+
+  const _onMouseDownUploadImage = (e) => {
+    e.preventDefault();
+  };
+
+  const _onUploadFiles = () => {
+    console.log("clicked upload File icon")
+  }
+
+  const _onMouseDownUploadFiles = (e) => {
+    e.preventDefault();
+  };
+
+  const _onMoreSetting = () => {
+    console.log("clicked upload File icon")
+  }
+
+  const _onMouseDownMoreSetting = (e) => {
+    e.preventDefault();
+  };
+
+  
+
   const contactList = [
     {
       id: 1,
       name: "sammie",
       avatar: user1,
-      timeAgo: 'a month ago',
-      lastMessage: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi',
-      unReadMessageCnt: 0
+      timeAgo: "a month ago",
+      lastMessage:
+        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi",
+      unReadMessageCnt: 0,
     },
     {
       id: 2,
       name: "Tommy",
       avatar: user2,
-      timeAgo: 'a sec ago',
-      lastMessage: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi',
-      unReadMessageCnt: 4
+      timeAgo: "a sec ago",
+      lastMessage:
+        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi",
+      unReadMessageCnt: 4,
     },
     {
       id: 3,
       name: "Gammie",
       avatar: user3,
-      timeAgo: '3 mins ago',
-      lastMessage: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi',
-      unReadMessageCnt: 300
+      timeAgo: "3 mins ago",
+      lastMessage:
+        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi",
+      unReadMessageCnt: 300,
     },
     {
       id: 4,
       name: "Hommy",
       avatar: user4,
-      timeAgo: 'a year ago',
-      lastMessage: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi',
-      unReadMessageCnt: 7
+      timeAgo: "a year ago",
+      lastMessage:
+        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi",
+      unReadMessageCnt: 7,
     },
     {
       id: 5,
       name: "Bommie",
       avatar: user5,
-      timeAgo: '39 mins ago',
-      lastMessage: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi',
-      unReadMessageCnt: 2
+      timeAgo: "39 mins ago",
+      lastMessage:
+        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi",
+      unReadMessageCnt: 2,
     },
     {
       id: 6,
       name: "Jammy",
       avatar: user6,
-      timeAgo: 'a few seconds ago',
-      lastMessage: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi',
-      unReadMessageCnt: 6
+      timeAgo: "a few seconds ago",
+      lastMessage:
+        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi",
+      unReadMessageCnt: 6,
     },
     {
       id: 7,
       name: "Lummy",
       avatar: user7,
-      timeAgo: 'a month ago',
-      lastMessage: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi',
-      unReadMessageCnt: 304
+      timeAgo: "a month ago",
+      lastMessage:
+        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi",
+      unReadMessageCnt: 304,
     },
     {
       id: 8,
       name: "Vammie",
       avatar: user8,
-      timeAgo: '2mins ago',
-      lastMessage: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi',
-      unReadMessageCnt: 0
+      timeAgo: "2mins ago",
+      lastMessage:
+        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi",
+      unReadMessageCnt: 0,
     },
     {
       id: 9,
       name: "Commie",
       avatar: user9,
-      timeAgo: 'a few seconds ago',
-      lastMessage: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi',
-      unReadMessageCnt: 10
+      timeAgo: "a few seconds ago",
+      lastMessage:
+        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi",
+      unReadMessageCnt: 10,
     },
   ];
 
@@ -225,11 +286,14 @@ function Home() {
                   className="chat-swapable-container"
                 >
                   <TabPanel value={tabValue} index={0} dir={theme.direction}>
-                    {
-                      contactList.map((contact, index) => {
-                        return(
-                        <Box sx={{px: 2, py: 2, pb:0}} key={index}>
-                          <Box display="flex" alignItems="center" sx={{pb: 2}}>
+                    {contactList.map((contact, index) => {
+                      return (
+                        <Box sx={{ px: 2, py: 2, pb: 0 }} key={index}>
+                          <Box
+                            display="flex"
+                            alignItems="center"
+                            sx={{ pb: 2 }}
+                          >
                             <Box>
                               <StyledBadge
                                 overlap="circular"
@@ -240,29 +304,61 @@ function Home() {
                                 variant="dot"
                               >
                                 <Avatar
-                                  alt="Remy Sharp"
+                                  alt={contact.name}
                                   src={contact.avatar}
                                 />
                               </StyledBadge>
                             </Box>
-                            <Box flexDirection="column" sx={{pl: 2}} className="chat-contact-detail-con">
+                            <Box
+                              flexDirection="column"
+                              sx={{ pl: 2 }}
+                              className="chat-contact-detail-con"
+                            >
                               <Box flexDirection="row" display="flex">
-                                <Typography textOverflow="ellipsis" overflow="hidden" width="100%" fontWeight="bold">{contact.name}</Typography>
-                                <Typography sx={{minWidth: 'fit-content'}}>{contact.timeAgo}</Typography>
+                                <Typography
+                                  textOverflow="ellipsis"
+                                  overflow="hidden"
+                                  width="100%"
+                                  fontWeight="bold"
+                                >
+                                  {contact.name}
+                                </Typography>
+                                <Typography sx={{ minWidth: "fit-content" }}>
+                                  {contact.timeAgo}
+                                </Typography>
                               </Box>
-                              <Box flexDirection="row" display="flex" className="" sx={{pt: 1}}>
-                                <Typography textOverflow="ellipsis" overflow="hidden" width="100%" whiteSpace="nowrap">{contact.lastMessage}</Typography>
-                                {
-                                  contact.unReadMessageCnt > 0 &&
-                                  <Chip color="info" label={contact.unReadMessageCnt > 99 ? '+99' : contact.unReadMessageCnt} size="small" />
-                                }
+                              <Box
+                                flexDirection="row"
+                                display="flex"
+                                className=""
+                                sx={{ pt: 1 }}
+                              >
+                                <Typography
+                                  textOverflow="ellipsis"
+                                  overflow="hidden"
+                                  width="100%"
+                                  whiteSpace="nowrap"
+                                >
+                                  {contact.lastMessage}
+                                </Typography>
+                                {contact.unReadMessageCnt > 0 && (
+                                  <Chip
+                                    color="info"
+                                    label={
+                                      contact.unReadMessageCnt > 99
+                                        ? "+99"
+                                        : contact.unReadMessageCnt
+                                    }
+                                    size="small"
+                                  />
+                                )}
                               </Box>
                             </Box>
                           </Box>
                           <Divider />
-                        </Box>)
-                      })
-                    }
+                        </Box>
+                      );
+                    })}
                   </TabPanel>
                   <TabPanel value={tabValue} index={1} dir={theme.direction}>
                     Item Two
@@ -276,10 +372,198 @@ function Home() {
           </Box>
         </Grid>
         <Grid item xs={8} className="h-100" pb={2} pr={2}>
-          <Box className="w-100 h-100 primaryBg" borderRadius={2}>
-            <Box className="chat-detail-selected-user-top-con" flexDirection="row" display="flex" alignItems="flex-start"> 
-              <Box>
-                
+          <Box className="w-100 h-100 primaryBg" flexDirection="column" display="flex" flex={1} borderRadius={2}>
+            <Box
+              className="chat-detail-selected-user-top-con"
+              sx={{ p: 2, pb: 0 }}
+            >
+              <Box
+                flexDirection="row"
+                display="flex"
+                alignItems="flex-start"
+                sx={{ pb: 2 }}
+              >
+                <Box sx={{ pr: 2 }}>
+                  <Avatar
+                    alt="Remy Sharp"
+                    src={user1}
+                    sx={{ width: 70, height: 70 }}
+                  />
+                </Box>
+                <Box
+                  flexDirection="column"
+                  display="flex"
+                  justifyContent="flex-start"
+                >
+                  <Typography
+                    textOverflow="ellipsis"
+                    typography="h4"
+                    overflow="hidden"
+                    width="100%"
+                    fontWeight="bold"
+                  >
+                    Jhon Sammie
+                  </Typography>
+                  <Box
+                    flexDirection="row"
+                    display="flex"
+                    alignItems="center"
+                    sx={{ pl: 2 }}
+                  >
+                    <Badge
+                      color="success"
+                      overlap="circular"
+                      badgeContent=" "
+                    ></Badge>
+                    <Typography sx={{ pl: 2, pt: 0.5 }} typography="subtitle2">
+                      Online
+                    </Typography>
+                  </Box>
+                </Box>
+                <Box sx={{ ml: "auto" }}>
+                  <IconButton
+                    onClick={_onSearchMessage}
+                    onMouseDown={_onMouseDownSearch}
+                  >
+                    <MoreVertIcon />
+                  </IconButton>
+                </Box>
+              </Box>
+              <Divider />
+            </Box>
+            <Box className="chat-detail-message-con" flex={1} sx={{px: 2}} overflow="auto">
+              <Box maxWidth={800} sx={{mr: 'auto', py: 1}}>
+                <Box display="flex" alignItems="flex-end">
+                  <Box sx={{pr: 2}}>
+                    <Avatar alt="user photo" src={user1} />
+                  </Box>
+                  <Box display="flex" flexDirection="column" className="w-100">
+                    <Box className="message-receive-con">
+                      <Typography >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!</Typography>
+                    </Box>
+                  </Box>
+                </Box>
+              </Box>
+              <Box maxWidth={800} sx={{ml: 'auto', py: 1}}>
+                <Box display="flex" alignItems="flex-end">
+                  <Box display="flex" flexDirection="column" className="w-100">
+                    <Box className="message-send-con">
+                      <Typography >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!</Typography>
+                    </Box>
+                  </Box>
+                  <Box sx={{pl: 2}}>
+                    <Avatar alt="user photo" src={userPhoto} />
+                  </Box>
+                </Box>
+              </Box>
+              <Box maxWidth={800} sx={{mr: 'auto', py: 1}}>
+                <Box display="flex" alignItems="flex-end">
+                  <Box sx={{pr: 2}}>
+                    <Avatar alt="user photo" src={user1} />
+                  </Box>
+                  <Box display="flex" flexDirection="column" className="w-100">
+                    <Box className="message-receive-con">
+                      <Typography >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!</Typography>
+                    </Box>
+                  </Box>
+                </Box>
+              </Box>
+              <Box maxWidth={800} sx={{ml: 'auto', py: 1}}>
+                <Box display="flex" alignItems="flex-end">
+                  <Box display="flex" flexDirection="column" className="w-100">
+                    <Box className="message-send-con">
+                      <Typography >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!</Typography>
+                    </Box>
+                  </Box>
+                  <Box sx={{pl: 2}}>
+                    <Avatar alt="user photo" src={userPhoto} />
+                  </Box>
+                </Box>
+              </Box>
+              <Box maxWidth={800} sx={{mr: 'auto', py: 1}}>
+                <Box display="flex" alignItems="flex-end">
+                  <Box sx={{pr: 2}}>
+                    <Avatar alt="user photo" src={user1} />
+                  </Box>
+                  <Box display="flex" flexDirection="column" className="w-100">
+                    <Box className="message-receive-con">
+                      <Typography >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!</Typography>
+                    </Box>
+                  </Box>
+                </Box>
+              </Box>
+              <Box maxWidth={800} sx={{ml: 'auto', py: 1}}>
+                <Box display="flex" alignItems="flex-end">
+                  <Box display="flex" flexDirection="column" className="w-100">
+                    <Box className="message-send-con">
+                      <Typography >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!</Typography>
+                    </Box>
+                  </Box>
+                  <Box sx={{pl: 2}}>
+                    <Avatar alt="user photo" src={userPhoto} />
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
+            <Box sx={{px: 2}}>
+              <Divider />
+            </Box>
+            <Box
+              className="chat-detail-message-send-con"
+              display="flex"
+              alignItems="center"
+              sx={{ p: 2 }}
+            >
+              
+              <Box sx={{pr: 2}}>
+                <Avatar alt="user photo" src={userPhoto} />
+              </Box>
+              <Box className="w-100">
+                <TextField
+                  label="Write your message..."
+                  color="info"
+                  fullWidth
+                  className="primaryFontColor"
+                  margin="none"
+                  value={message}
+                  onChange={(e) => {
+                    setMessage(e.target.value);
+                  }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="emoji"
+                          onClick={_onToggleEmoji}
+                          onMouseDown={_onMouseDownToggleEmoji}
+                          >
+                          <InsertEmoticonIcon />
+                        </IconButton>
+                        <IconButton
+                          aria-label="upload Image"
+                          onClick={_onUploadImage}
+                          onMouseDown={_onMouseDownUploadImage}
+                          >
+                          <CameraAltIcon />
+                        </IconButton>
+                        <IconButton
+                          aria-label="upload Files"
+                          onClick={_onUploadFiles}
+                          onMouseDown={_onMouseDownUploadFiles}
+                          >
+                          <AttachFileIcon />
+                        </IconButton>
+                        <IconButton
+                          aria-label="more setting"
+                          onClick={_onMoreSetting}
+                          onMouseDown={_onMouseDownMoreSetting}
+                          >
+                          <MoreHorizIcon />
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
               </Box>
             </Box>
           </Box>
