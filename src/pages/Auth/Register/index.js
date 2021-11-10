@@ -1,15 +1,30 @@
-import React, { useState } from "react";
-import { Grid, Box, Typography, TextField, Button } from "@mui/material";
-import AccountCircle from "@mui/icons-material/AccountCircle";
+import React, { useContext, useState } from "react";
+import {
+  Grid,
+  Box,
+  Typography,
+  TextField,
+  Button,
+  CircularProgress,
+} from "@mui/material";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import SpellcheckIcon from "@mui/icons-material/Spellcheck";
 import InputAdornment from "@mui/material/InputAdornment";
+import MailIcon from '@mui/icons-material/Mail';
+import PersonIcon from '@mui/icons-material/Person';
 import IconButton from "@mui/material/IconButton";
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import { logo } from "../../../assets/images/image";
+import RegisterUser from "../../../context/actions/auth/RegisterUser";
+import { GlobalContext } from "../../../context/Provider";
 
 function Register() {
+  const { authState, authDispatch } = useContext(GlobalContext);
+
+  const [username, setUsername] = useState('');
+  const [isErrorUserName, setIsErrorUserName] = useState(false);
+  const [errorMsgUserName, setErrorMsgUserName] = useState("");
   const [email, setEmail] = useState("");
   const [isErrorEmail, setIsErrorEmail] = useState(false);
   const [errorMsgEmail, setErrorMsgEmail] = useState("");
@@ -39,6 +54,10 @@ function Register() {
   };
 
   const _onSignup = () => {
+    if (username.trim() === "") {
+      setIsErrorUserName(true);
+      setErrorMsgUserName("Please input User name");
+    }
     if (email.trim() === "") {
       setIsErrorEmail(true);
       setErrorMsgEmail("Please input Email");
@@ -60,6 +79,16 @@ function Register() {
     if (!isErrorEmail && !isErrorPassword && !isErrorConfirmPassword) {
       console.log(email, password);
     }
+
+    let payload = {
+      username: username,
+      email: email,
+      password: password,
+    };
+
+    RegisterUser(payload)(authDispatch)((response) => {
+      console.log("RES____:", response)
+    });
   };
 
   return (
@@ -84,7 +113,41 @@ function Register() {
           </Typography>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-              <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+              <PersonIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+              <TextField
+                label="User Name"
+                variant="standard"
+                color={isErrorUserName ? "error" : "primary"}
+                className="w-100"
+                onChange={(e) => {
+                  if (e.target.value.trim() === "") {
+                    setIsErrorUserName(true);
+                    setErrorMsgUserName("Please input Username");
+                  } else {
+                    setIsErrorUserName(false);
+                    setErrorMsgUserName("");
+                  }
+                  setUsername(e.target.value);
+                }}
+              />
+            </Box>
+            {isErrorUserName && (
+              <Typography
+                variant="p"
+                align="left"
+                component="div"
+                sx={{ flexGrow: 1 }}
+                pt={1}
+                pl={4}
+                color="error"
+              >
+                {errorMsgUserName}
+              </Typography>
+            )}
+          </Box>
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Box sx={{ display: "flex", alignItems: "flex-end" }} mt={2}>
+              <MailIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
               <TextField
                 label="Email"
                 variant="standard"
@@ -179,7 +242,7 @@ function Register() {
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <Box sx={{ display: "flex", alignItems: "flex-end" }} mt={2}>
-              <SpellcheckIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+              <VerifiedUserIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
               <TextField
                 label="Confirm Password"
                 variant="standard"
@@ -241,11 +304,16 @@ function Register() {
               variant="contained"
               disableElevation
               fullWidth
+              disabled={authState.loading}
               onClick={() => {
                 _onSignup();
               }}
             >
-              Sign Up
+              {authState.loading ? (
+                <CircularProgress color="inherit" />
+              ) : (
+                "Sign Up"
+              )}
             </Button>
           </Box>
         </Box>

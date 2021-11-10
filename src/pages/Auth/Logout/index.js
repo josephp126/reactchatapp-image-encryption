@@ -1,6 +1,6 @@
 import { Backdrop, CircularProgress } from "@mui/material";
 import React, { useContext, useEffect } from "react";
-import logoutUser from "../../../context/actions/auth/logoutUser";
+import LogoutUser from "../../../context/actions/auth/LogoutUser";
 import { GlobalContext } from "../../../context/Provider";
 
 const Logout = () => {
@@ -8,7 +8,7 @@ const Logout = () => {
   const [open, setOpen] = React.useState(false);
   useEffect(() => {
     setOpen(true);
-    logoutUser()(authDispatch);
+    LogoutUser()(authDispatch);
   }, [authDispatch]);
   return (
     <Backdrop
