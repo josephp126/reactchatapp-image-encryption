@@ -58,7 +58,7 @@ function Register() {
       setErrorMsgConfirmPassword("Confirm password does not match");
     }
     if (!isErrorEmail && !isErrorPassword && !isErrorConfirmPassword) {
-      console.log(email, password)
+      console.log(email, password);
     }
   };
 
@@ -70,7 +70,7 @@ function Register() {
       alignItems="center"
       className="w-100 h-100"
     >
-      <Grid item md={4} sm={12} flexDirection="column" textAlign="center">
+      <Grid item md={4} sm={6} flexDirection="column" textAlign="center">
         <img src={logo} alt="logo" className="logo-alone-img" />
         <Box className="w-100">
           <Typography
@@ -88,7 +88,7 @@ function Register() {
               <TextField
                 label="Email"
                 variant="standard"
-                color={isErrorEmail ? 'error' : 'primary'}
+                color={isErrorEmail ? "error" : "primary"}
                 className="w-100"
                 onChange={(e) => {
                   if (e.target.value.trim() === "") {
@@ -130,7 +130,7 @@ function Register() {
                 className="w-100"
                 type={showPassword ? "text" : "password"}
                 value={password}
-                color={isErrorPassword ? 'error' : 'primary'}
+                color={isErrorPassword ? "error" : "primary"}
                 onChange={(e) => {
                   if (e.target.value.trim() === "") {
                     setIsErrorPassword(true);
@@ -186,7 +186,7 @@ function Register() {
                 className="w-100"
                 type={showConfirmPassword ? "text" : "password"}
                 value={confirmPassword}
-                color={isErrorConfirmPassword ? 'error' : 'primary'}
+                color={isErrorConfirmPassword ? "error" : "primary"}
                 onChange={(e) => {
                   if (e.target.value.trim() === "") {
                     setIsErrorConfirmPassword(true);

@@ -59,7 +59,7 @@ function SingIn() {
       alignItems="center"
       className="w-100 h-100"
     >
-      <Grid item md={4} sm={12} flexDirection="column" textAlign="center">
+      <Grid item md={4} sm={6} flexDirection="column" textAlign="center">
         <img src={logo} alt="logo" className="logo-alone-img" />
         <Box>
           <Typography
