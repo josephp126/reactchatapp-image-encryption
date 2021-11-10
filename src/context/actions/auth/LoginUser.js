@@ -6,18 +6,19 @@ import {
 } from "../../../constants/ActionTypes";
 import callApi from "../../../helpers/callApi";
 
-export default ({ password, userName: username }) =>
+export default ({ email, password }) =>
   (dispatch) => {
     dispatch({
       type: LOGIN_LOADING,
     });
     callApi
-      .post("auth/login", {
+      .post("/auth/signin", {
+        email,
         password,
-        username,
       })
       .then((res) => {
-        localStorage.setItem("token", res.data.token);
+        console.log(")))))))))))))))))))))))))))))))))))))", res)
+        localStorage.setItem("token", res.data.accessToken);
         localStorage.setItem("user", JSON.stringify(res.data.user));
         dispatch({
           type: LOGIN_SUCCESS,

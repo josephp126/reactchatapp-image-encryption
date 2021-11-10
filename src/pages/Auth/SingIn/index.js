@@ -15,6 +15,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import TempLoginSuccess from "../../../context/actions/auth/TempLoginSuccess";
 import { GlobalContext } from "../../../context/Provider";
+import LoginUser from "../../../context/actions/auth/LoginUser";
 
 function SingIn() {
   const { authDispatch } = useContext(GlobalContext);
@@ -48,7 +49,14 @@ function SingIn() {
     }
     console.log("login button clicked");
     console.log(email, password)
-    TempLoginSuccess({})(authDispatch);
+
+    let payload = {
+      email: email,
+      password: password
+    }
+
+    LoginUser(payload)(authDispatch);
+    // TempLoginSuccess({})(authDispatch);
   };
 
   return (
