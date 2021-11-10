@@ -12,8 +12,14 @@ export default (props) => {
       <Header {...props} />
       <main className="layout-content">
         <Switch>
-          <Route path="/login" component={(props) => <SingIn {...props} />}></Route>
-          <Route path="/register" component={(props) => <Register {...props} />}></Route>
+          <Route
+            path="/login"
+            component={(props) => <SingIn {...props} />}
+          ></Route>
+          <Route
+            path="/register"
+            component={(props) => <Register {...props} />}
+          ></Route>
           <Redirect to="/login" />
         </Switch>
       </main>

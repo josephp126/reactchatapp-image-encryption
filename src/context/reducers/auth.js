@@ -3,6 +3,7 @@ import {
   LOGOUT_SUCCESS,
   LOGIN_FAIL,
   LOGIN_LOADING,
+  LOGOUT_USER,
 } from "../../constants/ActionTypes";
 const auth = (state, { type, payload }) => {
   switch (type) {
@@ -27,6 +28,14 @@ const auth = (state, { type, payload }) => {
         ...state,
         loading: false,
         error: payload,
+      };
+
+    case LOGOUT_USER:
+      return {
+        ...state,
+        loading: false,
+        data: null,
+        isLogin: false,
       };
 
     default:

@@ -3,6 +3,7 @@ import React from "react";
 import { Redirect, Route, Switch } from "react-router";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import Logout from "../pages/Auth/Logout";
 import Home from "../pages/Main/Home";
 
 export default (props) => {
@@ -14,6 +15,10 @@ export default (props) => {
           <Route
             path="/home"
             component={(props) => <Home {...props} />}
+          ></Route>
+          <Route
+            path="/logout"
+            component={(props) => <Logout {...props} />}
           ></Route>
           <Redirect to="/home"/>
         </Switch>

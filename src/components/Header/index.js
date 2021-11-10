@@ -25,7 +25,7 @@ function Header() {
         setIsLoginPage(false);
       }
     }
-  }, [location]);
+  }, [location, isLogin]);
 
   return (
     <header>
@@ -37,7 +37,12 @@ function Header() {
             </Box>
             
             {isLogin ? (
-              <></>
+              <>
+              <Link to="/logout" className="nav-link">
+                Logout
+              </Link>
+
+              </>
             ) : isLoginPage ? (
               <Link to="/register" className="nav-link">
                 Register

@@ -2,10 +2,10 @@
 import { useTheme } from "./ThemeProvider";
 // import { createTheme, ThemeProvider } from "@mui/material";
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, } from "react";
 
 function DefaultThemeProvider({ children }) {
-  const [ThemeMode, toggleTheme] = useTheme();
+  const [ThemeMode] = useTheme();
   
   const theme = useMemo(
     () =>

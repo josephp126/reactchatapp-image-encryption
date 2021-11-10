@@ -19,9 +19,11 @@ import { GlobalContext } from "../../../context/Provider";
 function SingIn() {
   const { authDispatch } = useContext(GlobalContext);
   const [email, setEmail] = useState("");
-  const [isEmailError, setIsEmailError] = useState(false);
+  const [isErrorEmail, setIsErrorEmail] = useState(false);
+  const [errorMsgEmail, setErrorMsgEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isPasswordError, setIsPasswordError] = useState(false);
+  const [isErrorPassword, setIsErrorPassword] = useState(false);
+  const [errorMsgPassword, setErrorMsgPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const _onShowPassword = () => {
@@ -33,6 +35,17 @@ function SingIn() {
   };
 
   const _onLogin = () => {
+    if (email.trim() === "") {
+      setIsErrorEmail(true);
+      setErrorMsgEmail("Please input Email");
+    } else if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      setIsErrorEmail(true);
+      setErrorMsgEmail("Please input valid email");
+    }
+    if (password.trim() === "") {
+      setIsErrorPassword(true);
+      setErrorMsgPassword("Please input password");
+    }
     console.log("login button clicked");
     console.log(email, password)
     TempLoginSuccess({})(authDispatch);
@@ -58,44 +71,80 @@ function SingIn() {
           >
             Welcome Back!
           </Typography>
-          <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-            <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-            <TextField
-              label="Email"
-              variant="standard"
-              className="w-100"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-            />
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+              <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+              <TextField
+                label="Email"
+                variant="standard"
+                className="w-100"
+                value={email}
+                onChange={(e) => {
+                  if (e.target.value.trim() === "") {
+                    setIsErrorEmail(true);
+                    setErrorMsgEmail("Please input Email");
+                  } else if (
+                    !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)
+                  ) {
+                    setIsErrorEmail(true);
+                    setErrorMsgEmail("Please input valid email");
+                  } else {
+                    setIsErrorEmail(false);
+                    setErrorMsgEmail("");
+                  }
+                  setEmail(e.target.value);
+                }}
+              />
+            </Box>
+            {isErrorEmail && (
+              <Typography
+                variant="p"
+                align="left"
+                component="div"
+                sx={{ flexGrow: 1 }}
+                pt={1}
+                pl={4}
+                color="error"
+              >
+                {errorMsgEmail}
+              </Typography>
+            )}
           </Box>
-          <Box sx={{ display: "flex", alignItems: "flex-end" }} mt={2}>
-            <VpnKeyIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-            <TextField
-              label="Password"
-              variant="standard"
-              className="w-100"
-              type={showPassword ? "text" : "password"}
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={_onShowPassword}
-                      onMouseDown={_onMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Box sx={{ display: "flex", alignItems: "flex-end" }} mt={2}>
+              <VpnKeyIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+              <TextField
+                label="Password"
+                variant="standard"
+                className="w-100"
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => {
+                  if (e.target.value.trim() === "") {
+                    setIsErrorPassword(true);
+                    setErrorMsgPassword("Please input password");
+                  } else {
+                    setIsErrorPassword(false);
+                    setErrorMsgPassword("");
+                  }
+                  setPassword(e.target.value);
+                }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={_onShowPassword}
+                        onMouseDown={_onMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Box>
           </Box>
           <Box mt={4}>
             <Button
