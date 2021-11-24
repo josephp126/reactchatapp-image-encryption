@@ -3,7 +3,7 @@ import reset from "styled-reset";
 
 export const GlobalStyle = createGlobalStyle`
 	${reset}
-  @media (min-width: 578px) {
+  
     /** Mozilla scrollbar*/
     * {
       scrollbar-color: #CCC !important;
@@ -26,7 +26,7 @@ export const GlobalStyle = createGlobalStyle`
     ::-webkit-scrollbar-track {
       background: rgba(204, 204, 204, 0.3);
     }
-  }
+  
   * { padding: 0; margin: 0; }
   html, #root{
     width: 100%;
@@ -57,12 +57,12 @@ export const GlobalStyle = createGlobalStyle`
   }
   
   .app-bar, .footer-bar{
-    background: ${({ theme }) => theme.bgColor};
-    background-color: ${({ theme }) => theme.bgColor};
+    background: ${({ theme }) => theme.mainPageBg};
+    background-color: ${({ theme }) => theme.mainPageBg};
     color: ${({ theme }) => theme.textColor};
   }
   main.layout-content{
-    height: calc(100vh - 128px);
+    height: calc(100vh - 64px);
     overflow: auto;
     background: ${({ theme }) => theme.mainPageBg};
   }
@@ -122,7 +122,7 @@ export const GlobalStyle = createGlobalStyle`
 
   @media only screen and (max-width: 600px){
     main.layout-content{
-      height: calc(100vh - 118px);
+      height: calc(100vh - 59px);
       overflow: auto
     } 
   }

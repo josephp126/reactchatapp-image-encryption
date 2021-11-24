@@ -30,7 +30,7 @@ function Header() {
   return (
     <header>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" elevation={0}>
+        <AppBar position="static" elevation={1}>
           <Toolbar className="app-bar">
             <Box sx={{ flexGrow: 1 }}>
               <img src={logoMain} alt="logo" className="logo-img" />
