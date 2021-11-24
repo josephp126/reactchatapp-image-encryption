@@ -2,7 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 import Divider from "@mui/material/Divider";
-import { Avatar, Badge } from "@mui/material";
+import { Avatar, Badge, Chip, Typography } from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -62,7 +62,7 @@ const contactList = [
   },
   {
     id: 3,
-    name: "Gammie",
+    name: "Gammie sammie",
     avatar: user3,
     timeAgo: "3 mins ago",
     lastMessage:
@@ -180,7 +180,7 @@ export default function SideBar() {
   return (
     <Box sx={{ display: "flex", width: "100%", height: "100%", maxWidth: 250 }}>
       <Paper elevation={0} sx={{ minWidth: "100%", minHeight: "100%" }}>
-        <FireNav component="nav" disablePadding>
+        <FireNav component="nav" disablePadding sx={{ height: "100%" }}>
           <ListItem component="div" disablePadding>
             <SideBarAccount />
             <Tooltip title="Settings">
@@ -220,195 +220,226 @@ export default function SideBar() {
               </IconButton>
             </Tooltip>
           </ListItem>
-          <Box sx={{ padding: 1 }}>
-            <ListItemButton sx={{ height: 56, mb: 1, borderRadius: 2 }}>
-              <ListItemIcon>
-                <img src={friends} alt="friends-img" />
-              </ListItemIcon>
-              <ListItemText
-                primary="Friends"
-                primaryTypographyProps={{
-                  color: "secondary",
-                  fontWeight: "bold",
-                  variant: "body2",
-                }}
-              />
-            </ListItemButton>
+          <Box
+            sx={{ padding: 1, height: "calc(100% - 72px)", overflow: "auto" }}
+          >
+            <Box>
+              <ListItemButton sx={{ height: 56, mb: 1, borderRadius: 2 }}>
+                <ListItemIcon>
+                  <img src={friends} alt="friends-img" />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Friends"
+                  primaryTypographyProps={{
+                    color: "secondary",
+                    fontWeight: "bold",
+                    variant: "body2",
+                  }}
+                />
+              </ListItemButton>
 
-            <Box
-              sx={{
-                bgcolor: openDM ? "rgba(71, 98, 130, 0.2)" : null,
-                pb: openDM ? 0 : 0,
-                borderRadius: 2,
-              }}
-            >
-              <ListItemButton
-                alignItems="flex-start"
-                onClick={() => setOpenDM(!openDM)}
+              <Box
                 sx={{
-                  px: 3,
-                  pt: 2.5,
-                  pb: openDM ? 0 : 2.5,
-                  "&:hover, &:focus": { "& svg": { opacity: openDM ? 1 : 0 } },
+                  bgcolor: openDM ? "rgba(71, 98, 130, 0.2)" : null,
+                  pb: openDM ? 0 : 0,
                   borderRadius: 2,
                 }}
               >
-                <ListItemText
-                  primary="Direct Messages"
-                  primaryTypographyProps={{
-                    fontSize: 15,
-                    fontWeight: "bold",
-                    lineHeight: "20px",
-                    mb: "2px",
-                    paddingBottom: 0,
-                  }}
-                  secondary="See DM here."
-                  secondaryTypographyProps={{
-                    noWrap: true,
-                    fontSize: 12,
-                    lineHeight: "16px",
-                    color: openDM ? "rgba(0,0,0,0)" : "secondary",
-                  }}
-                  sx={{ my: 0 }}
-                />
-                <KeyboardArrowDown
-                  sx={{
-                    mr: -1,
-                    opacity: 0,
-                    transform: openDM ? "rotate(-180deg)" : "rotate(0)",
-                    transition: "0.2s",
-                  }}
-                />
-              </ListItemButton>
-            </Box>
-            {openDM &&
-              contactList.map((contact, index) => (
                 <ListItemButton
-                  selected={selectedUserId === index}
-                  onClick={() => _onSelectUser(index)}
-                  key={contact.id}
+                  alignItems="flex-start"
+                  onClick={() => setOpenDM(!openDM)}
                   sx={{
-                    py: 1,
-                    minHeight: 32,
-                    color: "rgba(255,255,255,.8)",
-                    mt: 0.5,
+                    px: 3,
+                    pt: 2.5,
+                    pb: openDM ? 0 : 2.5,
+                    "&:hover, &:focus": {
+                      "& svg": { opacity: openDM ? 1 : 0 },
+                    },
                     borderRadius: 2,
                   }}
                 >
-                  <ListItemIcon sx={{ color: "inherit" }}>
-                    <StyledBadge
-                      overlap="circular"
-                      anchorOrigin={{
-                        vertical: "bottom",
-                        horizontal: "right",
-                      }}
-                      variant="dot"
-                    >
-                      <Avatar
-                        alt={contact.name}
-                        src={contact.avatar}
-                        sx={{ width: 30, height: 30 }}
-                      />
-                    </StyledBadge>
-                  </ListItemIcon>
                   <ListItemText
-                    primary={contact.name}
+                    primary="Direct Messages"
                     primaryTypographyProps={{
-                      fontSize: 14,
-                      fontWeight: "medium",
-                      color: "secondary",
+                      fontSize: 15,
+                      fontWeight: "bold",
+                      lineHeight: "20px",
+                      mb: "2px",
+                      paddingBottom: 0,
+                    }}
+                    secondary="See DM here."
+                    secondaryTypographyProps={{
+                      noWrap: true,
+                      fontSize: 12,
+                      lineHeight: "16px",
+                      color: openDM ? "rgba(0,0,0,0)" : "secondary",
+                    }}
+                    sx={{ my: 0 }}
+                  />
+                  <KeyboardArrowDown
+                    sx={{
+                      mr: -1,
+                      opacity: 0,
+                      transform: openDM ? "rotate(-180deg)" : "rotate(0)",
+                      transition: "0.2s",
                     }}
                   />
                 </ListItemButton>
-              ))}
-            <Box
-              sx={{
-                bgcolor: openChannel ? "rgba(71, 98, 130, 0.2)" : null,
-                pb: openChannel ? 0 : 0,
-                borderRadius: 2,
-              }}
-            >
-              <ListItemButton
-                alignItems="flex-start"
-                onClick={() => setOpenChannel(!openChannel)}
+              </Box>
+              {openDM &&
+                contactList.map((contact, index) => (
+                  <ListItemButton
+                    selected={selectedUserId === index}
+                    onClick={() => _onSelectUser(index)}
+                    key={contact.id}
+                    sx={{
+                      py: 1,
+                      minHeight: 32,
+                      color: "rgba(255,255,255,.8)",
+                      mt: 0.5,
+                      borderRadius: 2,
+                    }}
+                  >
+                    <ListItemIcon sx={{ color: "inherit" }}>
+                      <StyledBadge
+                        overlap="circular"
+                        anchorOrigin={{
+                          vertical: "bottom",
+                          horizontal: "right",
+                        }}
+                        variant="dot"
+                      >
+                        <Avatar
+                          alt={contact.name}
+                          src={contact.avatar}
+                          sx={{ width: 30, height: 30 }}
+                        />
+                      </StyledBadge>
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={
+                        <Box display="flex" flexDirection="row" alignItems="center">
+                          <Typography
+                            textOverflow="ellipsis"
+                            overflow="hidden"
+                            width="100%"
+                            whiteSpace="nowrap"
+                          >
+                            {contact.name}
+                          </Typography>
+                          {contact.unReadMessageCnt > 0 && (
+                            <Chip
+                              color="warning"
+                              label={
+                                contact.unReadMessageCnt > 99
+                                  ? "+99"
+                                  : contact.unReadMessageCnt
+                              }
+                              size={'small'}
+                              sx={{fontSize: 12, width: 50, height: 20}}
+                            />
+                          )}
+                        </Box>
+                      }
+                      primaryTypographyProps={{
+                        fontSize: 14,
+                        fontWeight: "medium",
+                        color: "secondary",
+                      }}
+                    />
+                  </ListItemButton>
+                ))}
+            </Box>
+            <Box>
+              <Box
                 sx={{
-                  px: 3,
-                  pt: 2.5,
-                  pb: openChannel ? 0 : 2.5,
-                  "&:hover, &:focus": {
-                    "& svg": { opacity: openChannel ? 1 : 0 },
-                  },
+                  bgcolor: openChannel ? "rgba(71, 98, 130, 0.2)" : null,
+                  pb: openChannel ? 0 : 0,
                   borderRadius: 2,
                 }}
               >
-                <ListItemText
-                  primary="Direct Messages"
-                  primaryTypographyProps={{
-                    fontSize: 15,
-                    fontWeight: "bold",
-                    lineHeight: "20px",
-                    mb: "2px",
-                    paddingBottom: 0,
-                  }}
-                  secondary="See DM here."
-                  secondaryTypographyProps={{
-                    noWrap: true,
-                    fontSize: 12,
-                    lineHeight: "16px",
-                    color: openChannel ? "rgba(0,0,0,0)" : "secondary",
-                  }}
-                  sx={{ my: 0 }}
-                />
-                <KeyboardArrowDown
-                  sx={{
-                    mr: -1,
-                    opacity: 0,
-                    transform: openChannel ? "rotate(-180deg)" : "rotate(0)",
-                    transition: "0.2s",
-                  }}
-                />
-              </ListItemButton>
-            </Box>
-            {openChannel &&
-              contactList.map((contact, index) => (
                 <ListItemButton
-                  selected={selectedUserId === index}
-                  onClick={() => _onSelectUser(index)}
-                  key={contact.id}
+                  alignItems="flex-start"
+                  onClick={() => setOpenChannel(!openChannel)}
                   sx={{
-                    py: 1,
-                    minHeight: 32,
-                    color: "rgba(255,255,255,.8)",
-                    mt: 0.5,
+                    px: 3,
+                    pt: 2.5,
+                    pb: openChannel ? 0 : 2.5,
+                    "&:hover, &:focus": {
+                      "& svg": { opacity: openChannel ? 1 : 0 },
+                    },
                     borderRadius: 2,
                   }}
                 >
-                  <ListItemIcon sx={{ color: "inherit" }}>
-                    <StyledBadge
-                      overlap="circular"
-                      anchorOrigin={{
-                        vertical: "bottom",
-                        horizontal: "right",
-                      }}
-                      variant="dot"
-                    >
-                      <Avatar
-                        alt={contact.name}
-                        src={contact.avatar}
-                        sx={{ width: 30, height: 30 }}
-                      />
-                    </StyledBadge>
-                  </ListItemIcon>
                   <ListItemText
-                    primary={contact.name}
+                    primary="Channels"
                     primaryTypographyProps={{
-                      fontSize: 14,
-                      fontWeight: "medium",
-                      color: "secondary",
+                      fontSize: 15,
+                      fontWeight: "bold",
+                      lineHeight: "20px",
+                      mb: "2px",
+                      paddingBottom: 0,
+                    }}
+                    secondary="Select a channel here."
+                    secondaryTypographyProps={{
+                      noWrap: true,
+                      fontSize: 12,
+                      lineHeight: "16px",
+                      color: openChannel ? "rgba(0,0,0,0)" : "secondary",
+                    }}
+                    sx={{ my: 0 }}
+                  />
+                  <KeyboardArrowDown
+                    sx={{
+                      mr: -1,
+                      opacity: 0,
+                      transform: openChannel ? "rotate(-180deg)" : "rotate(0)",
+                      transition: "0.2s",
                     }}
                   />
                 </ListItemButton>
-              ))}
+              </Box>
+              {openChannel &&
+                contactList.map((contact, index) => (
+                  <ListItemButton
+                    selected={selectedUserId === index}
+                    onClick={() => _onSelectUser(index)}
+                    key={contact.id}
+                    sx={{
+                      py: 1,
+                      minHeight: 32,
+                      color: "rgba(255,255,255,.8)",
+                      mt: 0.5,
+                      borderRadius: 2,
+                    }}
+                  >
+                    <ListItemIcon sx={{ color: "inherit" }}>
+                      <StyledBadge
+                        overlap="circular"
+                        anchorOrigin={{
+                          vertical: "bottom",
+                          horizontal: "right",
+                        }}
+                        variant="dot"
+                      >
+                        <Avatar
+                          alt={contact.name}
+                          src={contact.avatar}
+                          sx={{ width: 30, height: 30 }}
+                        />
+                      </StyledBadge>
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={contact.name}
+                      primaryTypographyProps={{
+                        fontSize: 14,
+                        fontWeight: "medium",
+                        color: "secondary",
+                      }}
+                    />
+                  </ListItemButton>
+                ))}
+            </Box>
           </Box>
         </FireNav>
       </Paper>
