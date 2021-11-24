@@ -11,6 +11,8 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import ArrowRight from "@mui/icons-material/ArrowRight";
+import AddIcon from "@mui/icons-material/Add";
+import TagIcon from "@mui/icons-material/Tag";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import Settings from "@mui/icons-material/Settings";
 import SideBarAccount from "./Account";
@@ -27,6 +29,7 @@ import {
   user8,
   user9,
   hashTag,
+  dmIcon,
 } from "../../assets/images/image";
 
 const contactList = [
@@ -294,7 +297,26 @@ export default function SideBar() {
                   }}
                 >
                   <ListItemText
-                    primary="Direct Messages"
+                    primary={
+                      <Box
+                        display="flex"
+                        flexDirection="row"
+                        alignItems="center"
+                      >
+                        <img src={dmIcon} alt="dm-icon" />
+                        <Typography
+                          textOverflow="ellipsis"
+                          overflow="hidden"
+                          width="100%"
+                          whiteSpace="nowrap"
+                          fontSize={15}
+                          fontWeight="bold"
+                          pl={1}
+                        >
+                          Direct Messages
+                        </Typography>
+                      </Box>
+                    }
                     primaryTypographyProps={{
                       fontSize: 15,
                       fontWeight: "bold",
@@ -412,7 +434,26 @@ export default function SideBar() {
                   }}
                 >
                   <ListItemText
-                    primary="Channels"
+                    primary={
+                      <Box
+                        display="flex"
+                        flexDirection="row"
+                        alignItems="center"
+                      >
+                        <img src={hashTag} alt="dm-icon" width={20} />
+                        <Typography
+                          textOverflow="ellipsis"
+                          overflow="hidden"
+                          width="100%"
+                          whiteSpace="nowrap"
+                          fontSize={15}
+                          fontWeight="bold"
+                          pl={1}
+                        >
+                          Channels
+                        </Typography>
+                      </Box>
+                    }
                     primaryTypographyProps={{
                       fontSize: 15,
                       fontWeight: "bold",
@@ -439,12 +480,10 @@ export default function SideBar() {
                   />
                 </ListItemButton>
               </Box>
-              {openChannel &&
-                channelList.map((channel, index) => (
+
+              {openChannel && (
+                <>
                   <ListItemButton
-                    selected={selectedUserId === index}
-                    onClick={() => _onSelectUser(index)}
-                    key={channel.id}
                     sx={{
                       py: 1,
                       minHeight: 32,
@@ -453,48 +492,77 @@ export default function SideBar() {
                       borderRadius: 2,
                     }}
                   >
-                    <ListItemIcon sx={{ color: "inherit" }}>
-                      <img src={hashTag} alt="channel-hash" />
+                    <ListItemIcon>
+                      <AddIcon color="secondary" />
                     </ListItemIcon>
                     <ListItemText
-                      primary={
-                        <Box
-                          display="flex"
-                          flexDirection="row"
-                          alignItems="center"
-                        >
-                          <Typography
-                            textOverflow="ellipsis"
-                            overflow="hidden"
-                            width="100%"
-                            whiteSpace="nowrap"
-                            fontSize={14}
-                            fontWeight="bold"
-                          >
-                            {channel.name}
-                          </Typography>
-                          {channel.unReadMessageCnt > 0 && (
-                            <Chip
-                              color="warning"
-                              label={
-                                channel.unReadMessageCnt > 99
-                                  ? "+99"
-                                  : channel.unReadMessageCnt
-                              }
-                              size={"small"}
-                              sx={{ fontSize: 12, width: 50, height: 20 }}
-                            />
-                          )}
-                        </Box>
-                      }
+                      primary="Add channels"
                       primaryTypographyProps={{
-                        fontSize: 14,
-                        fontWeight: "medium",
                         color: "secondary",
+                        fontWeight: "bold",
+                        variant: "body2",
                       }}
                     />
                   </ListItemButton>
-                ))}
+                  {channelList.map((channel, index) => {
+                    return (
+                      <ListItemButton
+                        selected={selectedUserId === index}
+                        onClick={() => _onSelectUser(index)}
+                        key={channel.id}
+                        sx={{
+                          py: 1,
+                          minHeight: 32,
+                          color: "rgba(255,255,255,.8)",
+                          mt: 0.5,
+                          borderRadius: 2,
+                        }}
+                      >
+                        <ListItemIcon sx={{ color: "inherit" }}>
+                          <TagIcon color="secondary" />
+                        </ListItemIcon>
+                        <ListItemText
+                          primary={
+                            <Box
+                              display="flex"
+                              flexDirection="row"
+                              alignItems="center"
+                            >
+                              <Typography
+                                textOverflow="ellipsis"
+                                overflow="hidden"
+                                width="100%"
+                                whiteSpace="nowrap"
+                                fontSize={14}
+                                fontWeight="bold"
+                              >
+                                {channel.name}
+                              </Typography>
+                              {channel.unReadMessageCnt > 0 && (
+                                <Chip
+                                  color="warning"
+                                  label={
+                                    channel.unReadMessageCnt > 99
+                                      ? "+99"
+                                      : channel.unReadMessageCnt
+                                  }
+                                  size={"small"}
+                                  sx={{ fontSize: 12, width: 50, height: 20 }}
+                                />
+                              )}
+                            </Box>
+                          }
+                          primaryTypographyProps={{
+                            fontSize: 14,
+                            fontWeight: "medium",
+                            color: "secondary",
+                          }}
+                        />
+                      </ListItemButton>
+                    );
+                  })}
+                </>
+              )}
             </Box>
           </Box>
         </FireNav>

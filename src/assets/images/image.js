@@ -12,6 +12,7 @@ import user8Img from './user8.png'
 import user9Img from './user9.png'
 import friendsImg from './friends.png'
 import hashTagImg from './hashTag.png'
+import dmIconImg from './dm-icon.png'
 
 export const logoMain = logoMainImg;
 export const logo = logoImg;
@@ -27,3 +28,4 @@ export const user8 = user8Img;
 export const user9 = user9Img;
 export const friends = friendsImg;
 export const hashTag = hashTagImg;
+export const dmIcon = dmIconImg;
