@@ -7,7 +7,7 @@ import { user1 } from "../../../assets/images/image";
 
 function SideBarAccount() {
   return (
-    <ListItemButton component="div" >
+    <ListItemButton component="div">
       <ListItemIcon sx={{ fontSize: 20 }}>
         <Avatar alt="Remy Sharp" src={user1} sx={{ width: 40, height: 40 }} />
       </ListItemIcon>

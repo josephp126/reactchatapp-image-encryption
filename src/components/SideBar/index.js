@@ -1,7 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
-import Divider from "@mui/material/Divider";
+import { styled } from "@mui/material/styles";
 import { Avatar, Badge, Chip, Typography } from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -13,12 +12,7 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import ArrowRight from "@mui/icons-material/ArrowRight";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
-import Home from "@mui/icons-material/Home";
 import Settings from "@mui/icons-material/Settings";
-import People from "@mui/icons-material/People";
-import PermMedia from "@mui/icons-material/PermMedia";
-import Dns from "@mui/icons-material/Dns";
-import Public from "@mui/icons-material/Public";
 import SideBarAccount from "./Account";
 import { useState } from "react";
 import {
@@ -32,14 +26,8 @@ import {
   user7,
   user8,
   user9,
+  hashTag,
 } from "../../assets/images/image";
-
-const data = [
-  { icon: <People />, label: "Authentication" },
-  { icon: <Dns />, label: "Database" },
-  { icon: <PermMedia />, label: "Storage" },
-  { icon: <Public />, label: "Hosting" },
-];
 
 const contactList = [
   {
@@ -121,6 +109,53 @@ const contactList = [
     timeAgo: "a few seconds ago",
     lastMessage:
       "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi",
+    unReadMessageCnt: 10,
+  },
+];
+const channelList = [
+  {
+    id: 1,
+    name: "Developers",
+    unReadMessageCnt: 0,
+  },
+  {
+    id: 2,
+    name: "Managers",
+    unReadMessageCnt: 4,
+  },
+  {
+    id: 3,
+    name: "Clients",
+    unReadMessageCnt: 300,
+  },
+  {
+    id: 4,
+    name: "Testers",
+    unReadMessageCnt: 7,
+  },
+  {
+    id: 5,
+    name: "Business",
+    unReadMessageCnt: 2,
+  },
+  {
+    id: 6,
+    name: "WorkFlow",
+    unReadMessageCnt: 6,
+  },
+  {
+    id: 7,
+    name: "Meme",
+    unReadMessageCnt: 304,
+  },
+  {
+    id: 8,
+    name: "Funny",
+    unReadMessageCnt: 0,
+  },
+  {
+    id: 9,
+    name: "Joke",
     unReadMessageCnt: 10,
   },
 ];
@@ -318,12 +353,17 @@ export default function SideBar() {
                     </ListItemIcon>
                     <ListItemText
                       primary={
-                        <Box display="flex" flexDirection="row" alignItems="center">
+                        <Box
+                          display="flex"
+                          flexDirection="row"
+                          alignItems="center"
+                        >
                           <Typography
                             textOverflow="ellipsis"
                             overflow="hidden"
                             width="100%"
                             whiteSpace="nowrap"
+                            fontSize={14}
                           >
                             {contact.name}
                           </Typography>
@@ -335,8 +375,8 @@ export default function SideBar() {
                                   ? "+99"
                                   : contact.unReadMessageCnt
                               }
-                              size={'small'}
-                              sx={{fontSize: 12, width: 50, height: 20}}
+                              size={"small"}
+                              sx={{ fontSize: 12, width: 50, height: 20 }}
                             />
                           )}
                         </Box>
@@ -400,11 +440,11 @@ export default function SideBar() {
                 </ListItemButton>
               </Box>
               {openChannel &&
-                contactList.map((contact, index) => (
+                channelList.map((channel, index) => (
                   <ListItemButton
                     selected={selectedUserId === index}
                     onClick={() => _onSelectUser(index)}
-                    key={contact.id}
+                    key={channel.id}
                     sx={{
                       py: 1,
                       minHeight: 32,
@@ -414,23 +454,39 @@ export default function SideBar() {
                     }}
                   >
                     <ListItemIcon sx={{ color: "inherit" }}>
-                      <StyledBadge
-                        overlap="circular"
-                        anchorOrigin={{
-                          vertical: "bottom",
-                          horizontal: "right",
-                        }}
-                        variant="dot"
-                      >
-                        <Avatar
-                          alt={contact.name}
-                          src={contact.avatar}
-                          sx={{ width: 30, height: 30 }}
-                        />
-                      </StyledBadge>
+                      <img src={hashTag} alt="channel-hash" />
                     </ListItemIcon>
                     <ListItemText
-                      primary={contact.name}
+                      primary={
+                        <Box
+                          display="flex"
+                          flexDirection="row"
+                          alignItems="center"
+                        >
+                          <Typography
+                            textOverflow="ellipsis"
+                            overflow="hidden"
+                            width="100%"
+                            whiteSpace="nowrap"
+                            fontSize={14}
+                            fontWeight="bold"
+                          >
+                            {channel.name}
+                          </Typography>
+                          {channel.unReadMessageCnt > 0 && (
+                            <Chip
+                              color="warning"
+                              label={
+                                channel.unReadMessageCnt > 99
+                                  ? "+99"
+                                  : channel.unReadMessageCnt
+                              }
+                              size={"small"}
+                              sx={{ fontSize: 12, width: 50, height: 20 }}
+                            />
+                          )}
+                        </Box>
+                      }
                       primaryTypographyProps={{
                         fontSize: 14,
                         fontWeight: "medium",
