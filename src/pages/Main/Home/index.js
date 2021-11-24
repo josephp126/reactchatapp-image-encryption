@@ -5,37 +5,21 @@ import {
   TextField,
   InputAdornment,
   IconButton,
-  Tabs,
-  Tab,
   Typography,
   Badge,
   Avatar,
   Divider,
-  Chip,
 } from "@mui/material";
-import { useTheme, styled } from "@mui/material/styles";
-import PropTypes from "prop-types";
-import BadgeUnstyled from "@mui/core/BadgeUnstyled";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import SettingsInputComponentIcon from "@mui/icons-material/SettingsInputComponent";
-import SearchIcon from "@mui/icons-material/Search";
-import ChatIcon from "@mui/icons-material/Chat";
-import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
-import SettingsIcon from "@mui/icons-material/Settings";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import SwipeableViews from "react-swipeable-views";
 import { user1, userPhoto } from "../../../assets/images/image";
 import SideBar from "../../../components/SideBar";
-import SideBarSkype from "../../../components/SideBarSkype";
 
 function Home() {
-  const theme = useTheme();
-  const [searchText, setSearchText] = useState("");
   const [message, setMessage] = useState("");
-  const [tabValue, setTabValue] = useState(0);
 
   const _onSearchMessage = () => {};
 
