@@ -10,6 +10,7 @@ import user6Img from './user6.png'
 import user7Img from './user7.png'
 import user8Img from './user8.png'
 import user9Img from './user9.png'
+import friendsImg from './friends.png'
 
 export const logoMain = logoMainImg;
 export const logo = logoImg;
@@ -23,3 +24,4 @@ export const user6 = user6Img;
 export const user7 = user7Img;
 export const user8 = user8Img;
 export const user9 = user9Img;
+export const friends = friendsImg;
