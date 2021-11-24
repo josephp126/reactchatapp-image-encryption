@@ -101,23 +101,69 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .chat-detail-message-con{
-    }
+    background: ${({ theme }) => theme.bgColor};
+  }
+  .chat-detail-message-con:hover{
+    background: ${({ theme }) => theme.hoveredMessageBg};
+  }
   .chat-detail-message-send-con{
     
   }
   .message-receive-con{
-    padding: 10px;
-    background: ${({ theme }) => theme.mainPageBg};
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    color: ${({ theme }) => theme.chatSenderNameColor};
   }
+  
   .message-send-con{
     padding: 10px;
     background: ${({ theme }) => theme.chatSendBg};
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-left-radius: 10px;
+  }
+
+  .date-divider{
+    z-index: 1;
+    height: 0;
+    border-top: thin solid ${({ theme }) => theme.dateBorderColor};
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    position: relative;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    pointer-events: none;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    --divider-color: hsl(359,calc(var(--saturation-factor, 1)*82.6%),59.4%);
+    position: relative;
+    left: auto;
+    right: auto;
+    margin-top: 20px;
+    margin-bottom: 12px;
+    margin-left: 1rem;
+    margin-right: 0.875rem;
+  }
+
+  .date-divider-content{
+    display: block;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    padding: 2px 10px;
+    color: ${({ theme }) => theme.textColor};
+    background: ${({ theme }) => theme.bgColor};
+    line-height: 13px;
+    font-size: 12px;
+    margin-top: -1px;
+    font-weight: 600;
+    border-radius: 8px;
   }
 
   @media only screen and (max-width: 600px){

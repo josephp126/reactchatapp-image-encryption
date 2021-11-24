@@ -16,6 +16,7 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { user1, userPhoto } from "../../assets/images/image";
 import { useState } from "react";
+import DateDivider from "../DateDivider";
 
 function ChatBox() {
   const [message, setMessage] = useState("");
@@ -65,50 +66,38 @@ function ChatBox() {
       flex={1}
       borderRadius={0}
     >
-      <Box className="chat-detail-selected-user-top-con" sx={{ p: 2, pb: 0 }}>
+      <Box className="chat-detail-selected-user-top-con">
         <Box
+          className="app-bar"
           flexDirection="row"
           display="flex"
-          alignItems="flex-start"
-          sx={{ pb: 2 }}
+          alignItems="center"
+          sx={{ px: 2, py: 1 }}
         >
           <Box sx={{ pr: 2 }}>
             <Avatar
               alt="Remy Sharp"
               src={user1}
-              sx={{ width: 70, height: 70 }}
+              sx={{ width: 40, height: 40 }}
             />
           </Box>
-          <Box
-            flexDirection="column"
-            display="flex"
-            justifyContent="flex-start"
+          <Typography
+            textOverflow="ellipsis"
+            typography="h6"
+            overflow="hidden"
+            width="100%"
+            fontWeight="bold"
           >
-            <Typography
-              textOverflow="ellipsis"
-              typography="h4"
-              overflow="hidden"
-              width="100%"
-              fontWeight="bold"
-            >
-              Jhon Sammie
-            </Typography>
-            <Box
-              flexDirection="row"
-              display="flex"
-              alignItems="center"
-              sx={{ pl: 2 }}
-            >
-              <Badge
-                color="success"
-                overlap="circular"
-                badgeContent=" "
-              ></Badge>
-              <Typography sx={{ pl: 2, pt: 0.5 }} typography="subtitle2">
-                Online
-              </Typography>
-            </Box>
-          </Box>
+            Jhon Sammie
+            <Badge
+              color="success"
+              overlap="circular"
+              badgeContent=" "
+              variant="dot"
+              sx={{ marginLeft: 2 }}
+            ></Badge>
+          </Typography>
+
           <Box sx={{ ml: "auto" }}>
             <IconButton
               onClick={_onSearchMessage}
@@ -118,113 +107,51 @@ function ChatBox() {
             </IconButton>
           </Box>
         </Box>
-        <Divider />
       </Box>
-      <Box
-        className="chat-detail-message-con"
-        flex={1}
-        sx={{ px: 2 }}
-        overflow="auto"
-      >
-        <Box maxWidth={800} sx={{ mr: "auto", py: 1 }}>
-          <Box display="flex" alignItems="flex-end">
+      <Box flex={1} overflow="auto">
+        <DateDivider />
+
+        <Box sx={{ mr: "auto", py: 1 }} className="chat-detail-message-con">
+          <Box display="flex" alignItems="flex-start" sx={{ px: 2 }}>
             <Box sx={{ pr: 2 }}>
               <Avatar alt="user photo" src={user1} />
             </Box>
-            <Box display="flex" flexDirection="column" className="w-100">
-              <Box className="message-receive-con">
-                <Typography>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Commodi similique facere blanditiis nemo reprehenderit
-                  recusandae rerum et consectetur sed esse rem impedit veniam
-                  reiciendis, accusantium fugit unde error facilis cum!
+            <Box
+              display="flex"
+              flexDirection="column"
+              className="w-100 message-receive-con"
+            >
+              <Box display="flex" alignItems="center">
+                <Typography fontWeight="bold" fontSize={16}>
+                  Jhon Sammie
+                </Typography>
+                <Typography fontSize={14} sx={{ paddingLeft: 0.8 }}>
+                  1:56 AM
                 </Typography>
               </Box>
+              <Typography>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                Commodi similique facere blanditiis nemo reprehenderit
+                recusandae rerum et consectetur sed esse rem impedit veniam
+                reiciendis, accusantium fugit unde error facilis cum!
+              </Typography>
             </Box>
           </Box>
         </Box>
-        <Box maxWidth={800} sx={{ ml: "auto", py: 1 }}>
-          <Box display="flex" alignItems="flex-end">
-            <Box display="flex" flexDirection="column" className="w-100">
-              <Box className="message-send-con">
-                <Typography>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Commodi similique facere blanditiis nemo reprehenderit
-                  recusandae rerum et consectetur sed esse rem impedit veniam
-                  reiciendis, accusantium fugit unde error facilis cum!
-                </Typography>
-              </Box>
-            </Box>
-            <Box sx={{ pl: 2 }}>
-              <Avatar alt="user photo" src={userPhoto} />
-            </Box>
-          </Box>
-        </Box>
-        <Box maxWidth={800} sx={{ mr: "auto", py: 1 }}>
-          <Box display="flex" alignItems="flex-end">
-            <Box sx={{ pr: 2 }}>
-              <Avatar alt="user photo" src={user1} />
-            </Box>
-            <Box display="flex" flexDirection="column" className="w-100">
-              <Box className="message-receive-con">
-                <Typography>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Commodi similique facere blanditiis nemo reprehenderit
-                  recusandae rerum et consectetur sed esse rem impedit veniam
-                  reiciendis, accusantium fugit unde error facilis cum!
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-        </Box>
-        <Box maxWidth={800} sx={{ ml: "auto", py: 1 }}>
-          <Box display="flex" alignItems="flex-end">
-            <Box display="flex" flexDirection="column" className="w-100">
-              <Box className="message-send-con">
-                <Typography>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Commodi similique facere blanditiis nemo reprehenderit
-                  recusandae rerum et consectetur sed esse rem impedit veniam
-                  reiciendis, accusantium fugit unde error facilis cum!
-                </Typography>
-              </Box>
-            </Box>
-            <Box sx={{ pl: 2 }}>
-              <Avatar alt="user photo" src={userPhoto} />
-            </Box>
-          </Box>
-        </Box>
-        <Box maxWidth={800} sx={{ mr: "auto", py: 1 }}>
-          <Box display="flex" alignItems="flex-end">
-            <Box sx={{ pr: 2 }}>
-              <Avatar alt="user photo" src={user1} />
-            </Box>
-            <Box display="flex" flexDirection="column" className="w-100">
-              <Box className="message-receive-con">
-                <Typography>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Commodi similique facere blanditiis nemo reprehenderit
-                  recusandae rerum et consectetur sed esse rem impedit veniam
-                  reiciendis, accusantium fugit unde error facilis cum!
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-        </Box>
-        <Box maxWidth={800} sx={{ ml: "auto", py: 1 }}>
-          <Box display="flex" alignItems="flex-end">
-            <Box display="flex" flexDirection="column" className="w-100">
-              <Box className="message-send-con">
-                <Typography>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Commodi similique facere blanditiis nemo reprehenderit
-                  recusandae rerum et consectetur sed esse rem impedit veniam
-                  reiciendis, accusantium fugit unde error facilis cum!
-                </Typography>
-              </Box>
-            </Box>
-            <Box sx={{ pl: 2 }}>
-              <Avatar alt="user photo" src={userPhoto} />
+        <Box sx={{ mr: "auto", py: 1 }} className="chat-detail-message-con">
+          <Box display="flex" alignItems="flex-start" sx={{ px: 2 }}>
+            <Box
+              display="flex"
+              flexDirection="column"
+              className="w-100 message-receive-con"
+              sx={{paddingLeft: 7}}
+            >
+              <Typography>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                Commodi similique facere blanditiis nemo reprehenderit
+                recusandae rerum et consectetur sed esse rem impedit veniam
+                reiciendis, accusantium fugit unde error facilis cum!
+              </Typography>
             </Box>
           </Box>
         </Box>
