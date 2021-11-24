@@ -18,6 +18,8 @@ import People from "@mui/icons-material/People";
 import PermMedia from "@mui/icons-material/PermMedia";
 import Dns from "@mui/icons-material/Dns";
 import Public from "@mui/icons-material/Public";
+import SideBarAccount from "./Account";
+import { useState } from "react";
 
 const data = [
   { icon: <People />, label: "Authentication" },
@@ -40,27 +42,22 @@ const FireNav = styled(List)({
   },
 });
 
+
+
 export default function SideBar() {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
+  const [selectedUserId , setSelectedUserId ] = useState(0);
+  
+  const _onSelectUser = (index) => {
+    
+  }
+
   return (
     <Box sx={{ display: "flex", width: '100%', height: '100%', maxWidth: 250 }}>
       <Paper elevation={0} sx={{ minWidth: '100%', minHeight: '100%'  }}>
         <FireNav component="nav" disablePadding>
-          <ListItemButton component="a" href="#customized-list">
-            <ListItemIcon sx={{ fontSize: 20 }}>🔥</ListItemIcon>
-            <ListItemText
-              sx={{ my: 0 }}
-              primary="Firebash"
-              primaryTypographyProps={{
-                fontSize: 20,
-                fontWeight: "medium",
-                letterSpacing: 0,
-              }}
-            />
-          </ListItemButton>
-          <Divider />
           <ListItem component="div" disablePadding>
-            <ListItemButton sx={{ height: 56 }}>
+            {/* <ListItemButton sx={{ height: 56 }}>
               <ListItemIcon>
                 <Home color="secondary" />
               </ListItemIcon>
@@ -72,8 +69,9 @@ export default function SideBar() {
                   variant: "body2",
                 }}
               />
-            </ListItemButton>
-            <Tooltip title="Project Settings">
+            </ListItemButton> */}
+            <SideBarAccount />
+            <Tooltip title="Settings">
               <IconButton
                 size="large"
                 sx={{
@@ -129,7 +127,7 @@ export default function SideBar() {
               }}
             >
               <ListItemText
-                primary="Build"
+                primary="Direct Messages"
                 primaryTypographyProps={{
                   fontSize: 15,
                   fontWeight: "medium",
@@ -155,8 +153,10 @@ export default function SideBar() {
               />
             </ListItemButton>
             {open &&
-              data.map((item) => (
+              data.map((item, index) => (
                 <ListItemButton
+                selected={selectedUserId === index}
+                onClick={() => _onSelectUser(index)}
                   key={item.label}
                   sx={{ py: 0, minHeight: 32, color: "rgba(255,255,255,.8)" }}
                 >
