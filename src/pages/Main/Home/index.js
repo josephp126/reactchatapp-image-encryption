@@ -86,8 +86,7 @@ function Home() {
     <Box className="w-100 h-100">
       <Grid container spacing={2} className="h-100" mt={0}>
         <Grid item xs={4} className="h-100" pb={2}>
-          
-          <SideBarSkype />
+          <SideBar />
         </Grid>
         <Grid item xs={8} className="h-100" pb={2} pr={2}>
           <Box className="w-100 h-100 primaryBg" flexDirection="column" display="flex" flex={1} borderRadius={2}>
