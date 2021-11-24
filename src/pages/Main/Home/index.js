@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, Box } from "@mui/material";
 import SideBar from "../../../components/SideBar";
-import ChatBoxSkype from "../../../components/ChatBoxSkype";
+import ChatBox from "../../../components/ChatBox";
 
 function Home() {
   return (
@@ -9,7 +9,7 @@ function Home() {
       <Grid container spacing={0} className="h-100" mt={0}>
         <Grid item xs={12} display="flex" className="h-100" pb={0} pt={0}>
           <SideBar />
-          <ChatBoxSkype />
+          <ChatBox />
         </Grid>
       </Grid>
     </Box>
