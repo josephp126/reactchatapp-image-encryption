@@ -16,10 +16,10 @@ import {
 import { useTheme, styled } from "@mui/material/styles";
 import PropTypes from "prop-types";
 import BadgeUnstyled from "@mui/core/BadgeUnstyled";
-import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
-import AttachFileIcon from '@mui/icons-material/AttachFile';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import SettingsInputComponentIcon from "@mui/icons-material/SettingsInputComponent";
 import SearchIcon from "@mui/icons-material/Search";
 import ChatIcon from "@mui/icons-material/Chat";
@@ -173,7 +173,6 @@ function SideBarSkype() {
       unReadMessageCnt: 10,
     },
   ];
-
 
   return (
     <Box className="h-100" pl={2}>
