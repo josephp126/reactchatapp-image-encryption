@@ -17,9 +17,122 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { user1, userPhoto } from "../../assets/images/image";
 import { useState } from "react";
 import DateDivider from "../DateDivider";
+import moment from 'moment'
+
+const chatHistory = [
+  {
+    id: 1,
+    sender: {
+      avatar: user1,
+      name: "Jhon Sammie",
+    },
+    created_at: new Date(2021, 11, 22, 7, 16, 34),
+    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
+  },
+  {
+    id: 2,
+    sender: {
+      avatar: userPhoto,
+      name: "Tommy",
+    },
+    created_at: new Date(2021, 11, 22, 7, 16, 15),
+    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
+  },
+  {
+    id: 3,
+    sender: {
+      avatar: user1,
+      name: "Jhon Sammie",
+    },
+    created_at: new Date(2021, 11, 23, 7, 17, 12),
+    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
+  },
+  {
+    id: 4,
+    sender: {
+      avatar: userPhoto,
+      name: "Tommy",
+    },
+    created_at: new Date(2021, 11, 23, 7, 17, 55),
+    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
+  },
+  {
+    id: 5,
+    sender: {
+      avatar: user1,
+      name: "Jhon Sammie",
+    },
+    created_at: new Date(2021, 11, 23, 7, 17, 15),
+    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
+  },
+  {
+    id: 6,
+    sender: {
+      avatar: user1,
+      name: "Jhon Sammie",
+    },
+    created_at: new Date(2021, 11, 24, 7, 20, 34),
+    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
+  },
+  {
+    id: 7,
+    sender: {
+      avatar: userPhoto,
+      name: "Tommy",
+    },
+    created_at: new Date(2021, 11, 24, 7, 18, 2),
+    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
+  },
+  {
+    id: 8,
+    sender: {
+      avatar: user1,
+      name: "Jhon Sammie",
+    },
+    created_at: new Date(2021, 11, 24, 7, 18, 43),
+    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
+  },
+  {
+    id: 9,
+    sender: {
+      avatar: userPhoto,
+      name: "Tommy",
+    },
+    created_at: new Date(2021, 11, 24, 7, 18, 33),
+    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
+  },
+  {
+    id: 10,
+    sender: {
+      avatar: user1,
+      name: "Jhon Sammie",
+    },
+    created_at: new Date(2021, 11, 25, 7, 19, 54),
+    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
+  },
+  {
+    id: 11,
+    sender: {
+      avatar: user1,
+      name: "Jhon Sammie",
+    },
+    created_at: new Date(2021, 11, 25, 7, 20, 2),
+    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
+  },
+  {
+    id: 12,
+    sender: {
+      avatar: user1,
+      name: "Jhon Sammie",
+    },
+    created_at: new Date(2021, 11, 25, 7, 21, 43),
+    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
+  },
+];
 
 function ChatBox() {
   const [message, setMessage] = useState("");
+  const [showWidgetId, setShowWidgetId] = useState(-1);
 
   const _onSearchMessage = () => {};
 
@@ -58,6 +171,15 @@ function ChatBox() {
   const _onMouseDownMoreSetting = (e) => {
     e.preventDefault();
   };
+
+  const showWidgets = () => {
+    setShowWidgetId(1);
+  };
+
+  const hideWidgets = () => {
+    setShowWidgetId(-1);
+  };
+
   return (
     <Box
       className="w-100 h-100 primaryBg"
@@ -110,51 +232,49 @@ function ChatBox() {
       </Box>
       <Box flex={1} overflow="auto">
         <DateDivider />
-
-        <Box sx={{ mr: "auto", py: 1 }} className="chat-detail-message-con">
-          <Box display="flex" alignItems="flex-start" sx={{ px: 2 }}>
-            <Box sx={{ pr: 2 }}>
-              <Avatar alt="user photo" src={user1} />
-            </Box>
-            <Box
-              display="flex"
-              flexDirection="column"
-              className="w-100 message-receive-con"
-            >
-              <Box display="flex" alignItems="center">
-                <Typography fontWeight="bold" fontSize={16}>
-                  Jhon Sammie
-                </Typography>
-                <Typography fontSize={14} sx={{ paddingLeft: 0.8 }}>
-                  1:56 AM
-                </Typography>
+        {
+          chatHistory.map((chatItem, index) => {
+            return (
+              <Box
+                sx={{ mr: "auto", py: 1 }}
+                className="chat-detail-message-con"
+                onMouseEnter={() => {
+                  console.log("______Entered!!!");
+                  showWidgets();
+                }}
+                onMouseLeave={() => {
+                  console.log("++++++Leaved!!!");
+                  hideWidgets();
+                }}
+              >
+                <Box display="flex" alignItems="flex-start" sx={{ px: 2 }}>
+                  <Box sx={{ pr: 2 }}>
+                    <Avatar alt="user photo" src={chatItem.sender.avatar} />
+                  </Box>
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    className="w-100 message-receive-con"
+                  >
+                    <Box display="flex" alignItems="center">
+                      <Typography fontWeight="bold" fontSize={16}>
+                        Jhon Sammie
+                      </Typography>
+                      <Typography fontSize={14} sx={{ paddingLeft: 0.8 }}>
+                        { moment(chatItem.created_at, 'HH:mm:ss').format('mm:ss') }
+                      </Typography>
+                    </Box>
+                    <Typography>
+                      {chatItem.msg}
+                    </Typography>
+                  </Box>
+                </Box>
               </Box>
-              <Typography>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Commodi similique facere blanditiis nemo reprehenderit
-                recusandae rerum et consectetur sed esse rem impedit veniam
-                reiciendis, accusantium fugit unde error facilis cum!
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
-        <Box sx={{ mr: "auto", py: 1 }} className="chat-detail-message-con">
-          <Box display="flex" alignItems="flex-start" sx={{ px: 2 }}>
-            <Box
-              display="flex"
-              flexDirection="column"
-              className="w-100 message-receive-con"
-              sx={{paddingLeft: 7}}
-            >
-              <Typography>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Commodi similique facere blanditiis nemo reprehenderit
-                recusandae rerum et consectetur sed esse rem impedit veniam
-                reiciendis, accusantium fugit unde error facilis cum!
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
+            )
+          })
+        }
+        
+        
       </Box>
       <Box sx={{ px: 2 }}>
         <Divider />
