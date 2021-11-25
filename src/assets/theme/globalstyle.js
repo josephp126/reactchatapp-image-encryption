@@ -101,6 +101,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .chat-detail-message-con{
+    position: relative;
     background: ${({ theme }) => theme.bgColor};
   }
   .chat-detail-message-con:hover{
@@ -164,6 +165,13 @@ export const GlobalStyle = createGlobalStyle`
     margin-top: -1px;
     font-weight: 600;
     border-radius: 8px;
+  }
+
+  .message-config-con{
+    border: 1px solid ${({ theme }) => theme.messageConfigBorder};
+    border-radius: 5px;
+    background: ${({ theme }) => theme.messageConfigBg};
+    z-index:1
   }
 
   @media only screen and (max-width: 600px){

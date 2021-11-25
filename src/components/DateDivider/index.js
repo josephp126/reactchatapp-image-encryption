@@ -1,13 +1,15 @@
 import React from "react";
+import { useEffect } from "react";
+import moment from 'moment';
 
-function DateDivider() {
+function DateDivider({date}) {
   return (
     <div
       className="date-divider"
       role="separator"
-      aria-label="November 25, 2021"
+      aria-label={moment(date).format('MMMM DD, YYYY')}
     >
-      <span className="date-divider-content">November 25, 2021</span>
+      <span className="date-divider-content">{moment(date).format('MMMM DD, YYYY')}</span>
     </div>
   );
 }

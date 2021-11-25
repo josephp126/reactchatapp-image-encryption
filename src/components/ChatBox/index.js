@@ -17,121 +17,16 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { user1, userPhoto } from "../../assets/images/image";
 import { useState } from "react";
 import DateDivider from "../DateDivider";
-import moment from 'moment'
+import { useEffect } from "react";
+import groupDays from "../../helpers/groupDays";
+import MessageList from "../../db/chat/MessageList";
+import moment from "moment";
 
-const chatHistory = [
-  {
-    id: 1,
-    sender: {
-      avatar: user1,
-      name: "Jhon Sammie",
-    },
-    created_at: new Date(2021, 11, 22, 7, 16, 34),
-    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
-  },
-  {
-    id: 2,
-    sender: {
-      avatar: userPhoto,
-      name: "Tommy",
-    },
-    created_at: new Date(2021, 11, 22, 7, 16, 15),
-    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
-  },
-  {
-    id: 3,
-    sender: {
-      avatar: user1,
-      name: "Jhon Sammie",
-    },
-    created_at: new Date(2021, 11, 23, 7, 17, 12),
-    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
-  },
-  {
-    id: 4,
-    sender: {
-      avatar: userPhoto,
-      name: "Tommy",
-    },
-    created_at: new Date(2021, 11, 23, 7, 17, 55),
-    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
-  },
-  {
-    id: 5,
-    sender: {
-      avatar: user1,
-      name: "Jhon Sammie",
-    },
-    created_at: new Date(2021, 11, 23, 7, 17, 15),
-    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
-  },
-  {
-    id: 6,
-    sender: {
-      avatar: user1,
-      name: "Jhon Sammie",
-    },
-    created_at: new Date(2021, 11, 24, 7, 20, 34),
-    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
-  },
-  {
-    id: 7,
-    sender: {
-      avatar: userPhoto,
-      name: "Tommy",
-    },
-    created_at: new Date(2021, 11, 24, 7, 18, 2),
-    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
-  },
-  {
-    id: 8,
-    sender: {
-      avatar: user1,
-      name: "Jhon Sammie",
-    },
-    created_at: new Date(2021, 11, 24, 7, 18, 43),
-    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
-  },
-  {
-    id: 9,
-    sender: {
-      avatar: userPhoto,
-      name: "Tommy",
-    },
-    created_at: new Date(2021, 11, 24, 7, 18, 33),
-    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
-  },
-  {
-    id: 10,
-    sender: {
-      avatar: user1,
-      name: "Jhon Sammie",
-    },
-    created_at: new Date(2021, 11, 25, 7, 19, 54),
-    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
-  },
-  {
-    id: 11,
-    sender: {
-      avatar: user1,
-      name: "Jhon Sammie",
-    },
-    created_at: new Date(2021, 11, 25, 7, 20, 2),
-    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
-  },
-  {
-    id: 12,
-    sender: {
-      avatar: user1,
-      name: "Jhon Sammie",
-    },
-    created_at: new Date(2021, 11, 25, 7, 21, 43),
-    msg: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi similique facere blanditiis nemo reprehenderit recusandae rerum et consectetur sed esse rem impedit veniam reiciendis, accusantium fugit unde error facilis cum!",
-  },
-];
+// let chatHistoryList = [];
 
 function ChatBox() {
   const [message, setMessage] = useState("");
+  const [chatHistoryList, setChatHistoryList] = useState([]);
   const [showWidgetId, setShowWidgetId] = useState(-1);
 
   const _onSearchMessage = () => {};
@@ -172,13 +67,90 @@ function ChatBox() {
     e.preventDefault();
   };
 
-  const showWidgets = () => {
-    setShowWidgetId(1);
+  const showWidgets = (index) => {
+    setShowWidgetId(index);
   };
 
-  const hideWidgets = () => {
+  const hideWidgets = (index) => {
     setShowWidgetId(-1);
   };
+
+  const renderChatHistory = () => {
+    return chatHistoryList.map((chatItem, index) => {
+      console.log(chatItem);
+      if (chatItem.type && chatItem.type === "day") {
+        return <DateDivider date={chatItem.date} />;
+      } else {
+        return (
+          <Box
+            sx={{ mr: "auto", py: 1 }}
+            className="chat-detail-message-con"
+            onMouseEnter={() => {
+              console.log("______Entered!!!");
+              showWidgets(index);
+            }}
+            onMouseLeave={() => {
+              console.log("++++++Leaved!!!");
+              hideWidgets(index);
+            }}
+          >
+            {!chatHistoryList[index - 1].type &&
+            chatHistoryList[index - 1].sender.id == chatItem.sender.id ? (
+              <Box display="flex" alignItems="flex-start" sx={{ px: 2 }}>
+                <Box sx={{ width: 60}}>
+                  <Typography fontSize={14} sx={{ paddingLeft: 0.8 }}>
+                    { index == showWidgetId && moment(chatItem.created_at, "HH:mm:ss").format("mm:ss")}
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  className={"w-100 message-receive-con"}
+                >
+                  <Typography>{chatItem.msg}</Typography>
+                </Box>
+              </Box>
+            ) : (
+              <Box display="flex" alignItems="flex-start" sx={{ px: 2 }}>
+                <Box sx={{ width: 60 }}>
+                  <Avatar alt="user photo" src={chatItem.sender.avatar} />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  className="w-100 message-receive-con"
+                >
+                  <Box display="flex" alignItems="center">
+                    <Typography fontWeight="bold" fontSize={16}>
+                      {chatItem.sender.name}
+                    </Typography>
+                    <Typography fontSize={14} sx={{ paddingLeft: 0.8 }}>
+                      {moment(chatItem.created_at, "HH:mm:ss").format("mm:ss")}
+                    </Typography>
+                  </Box>
+                  <Typography>{chatItem.msg}</Typography>
+                </Box>
+              </Box>
+            )}
+            {
+              index == showWidgetId &&
+              <Box sx={{position: 'absolute', top: -20, right: 30, padding: 1}} className="message-config-con">
+                sammie
+              </Box>
+            }
+          </Box>
+        );
+      }
+    });
+  };
+
+  useEffect(() => {
+    let items = groupDays(MessageList);
+    console.log("+++++++++++++", items);
+    items = items.reverse();
+    setChatHistoryList([...items]);
+    console.log("chatHistoryList: ", chatHistoryList);
+  }, []);
 
   return (
     <Box
@@ -231,50 +203,7 @@ function ChatBox() {
         </Box>
       </Box>
       <Box flex={1} overflow="auto">
-        <DateDivider />
-        {
-          chatHistory.map((chatItem, index) => {
-            return (
-              <Box
-                sx={{ mr: "auto", py: 1 }}
-                className="chat-detail-message-con"
-                onMouseEnter={() => {
-                  console.log("______Entered!!!");
-                  showWidgets();
-                }}
-                onMouseLeave={() => {
-                  console.log("++++++Leaved!!!");
-                  hideWidgets();
-                }}
-              >
-                <Box display="flex" alignItems="flex-start" sx={{ px: 2 }}>
-                  <Box sx={{ pr: 2 }}>
-                    <Avatar alt="user photo" src={chatItem.sender.avatar} />
-                  </Box>
-                  <Box
-                    display="flex"
-                    flexDirection="column"
-                    className="w-100 message-receive-con"
-                  >
-                    <Box display="flex" alignItems="center">
-                      <Typography fontWeight="bold" fontSize={16}>
-                        Jhon Sammie
-                      </Typography>
-                      <Typography fontSize={14} sx={{ paddingLeft: 0.8 }}>
-                        { moment(chatItem.created_at, 'HH:mm:ss').format('mm:ss') }
-                      </Typography>
-                    </Box>
-                    <Typography>
-                      {chatItem.msg}
-                    </Typography>
-                  </Box>
-                </Box>
-              </Box>
-            )
-          })
-        }
-        
-        
+        {renderChatHistory()}
       </Box>
       <Box sx={{ px: 2 }}>
         <Divider />

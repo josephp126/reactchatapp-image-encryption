@@ -7,6 +7,8 @@ export const lightTheme = {
   dateBorderColor: "#ebebec",
   hoveredMessageBg: '#f5f3f3',
   chatSenderNameColor: '#31302E',
+  messageConfigBg: "#FDFDFD",
+  messageConfigBorder: "#999999",
 };
 
 export const darkTheme = {
@@ -18,6 +20,8 @@ export const darkTheme = {
   dateBorderColor: "#42454A",
   hoveredMessageBg: '#3a3a3a',
   chatSenderNameColor: '#CCCCCC',
+  messageConfigBg: "#323232",
+  messageConfigBorder: "#35373b",
 };
 
 export const theme = {
