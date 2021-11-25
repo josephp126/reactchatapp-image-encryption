@@ -21,6 +21,7 @@ import { useEffect } from "react";
 import groupDays from "../../helpers/groupDays";
 import MessageList from "../../db/chat/MessageList";
 import moment from "moment";
+import MessageSettingBox from "../MessageSettingBox";
 
 // let chatHistoryList = [];
 
@@ -134,9 +135,7 @@ function ChatBox() {
             )}
             {
               index == showWidgetId &&
-              <Box sx={{position: 'absolute', top: -20, right: 30, padding: 1}} className="message-config-con">
-                sammie
-              </Box>
+              <MessageSettingBox />
             }
           </Box>
         );

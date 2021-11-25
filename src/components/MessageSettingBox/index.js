@@ -1,8 +1,13 @@
 import * as React from "react";
+import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import Fade from '@mui/material/Fade';
 import ButtonGroup from "@mui/material/ButtonGroup";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
+import CreateIcon from '@mui/icons-material/Create';
+import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import Grow from "@mui/material/Grow";
 import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
@@ -42,23 +47,44 @@ function MessageSettingBox() {
   };
 
   return (
-    <React.Fragment>
+    <Box
+      sx={{
+        position: "absolute",
+        top: -20,
+        right: 30,
+        padding: 1,
+        zIndex: 111,
+      }}
+    >
       <ButtonGroup
         variant="contained"
         ref={anchorRef}
         aria-label="split button"
+        color="secondary"
       >
-        <Button onClick={handleClick}>{options[selectedIndex]}</Button>
-        <Button
-          size="small"
-          aria-controls={open ? "split-button-menu" : undefined}
-          aria-expanded={open ? "true" : undefined}
-          aria-label="select merge strategy"
-          aria-haspopup="menu"
-          onClick={handleToggle}
-        >
-          <ArrowDropDownIcon />
-        </Button>
+        <Tooltip title="Add Reaction" arrow placement="top" TransitionComponent={Fade}>
+          <Button size="small" onClick={handleClick} color="secondary">
+            <EmojiEmotionsIcon size="small" />
+          </Button>
+        </Tooltip>
+        <Tooltip title="Edit" arrow placement="top" TransitionComponent={Fade}>
+          <Button size="small" onClick={handleClick} color="secondary">
+            <CreateIcon size="small" />
+          </Button>
+        </Tooltip>
+        <Tooltip title="More" arrow placement="top" TransitionComponent={Fade}>
+          <Button
+            size="small"
+            aria-controls={open ? "split-button-menu" : undefined}
+            aria-expanded={open ? "true" : undefined}
+            aria-label="select merge strategy"
+            aria-haspopup="menu"
+            onClick={handleToggle}
+            color="secondary"
+          >
+            <MoreHorizIcon size="small" />
+          </Button>
+        </Tooltip>
       </ButtonGroup>
       <Popper
         open={open}
@@ -94,7 +120,7 @@ function MessageSettingBox() {
           </Grow>
         )}
       </Popper>
-    </React.Fragment>
+    </Box>
   );
 }
 
