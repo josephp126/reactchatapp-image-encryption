@@ -18,8 +18,10 @@ import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import { logo } from "assets/images/image";
 import RegisterUser from "context/actions/auth/RegisterUser";
 import { GlobalContext } from "context/Provider";
+import { useHistory } from 'react-router-dom'
 
 function Register() {
+  const history  = useHistory();
   const { authState, authDispatch } = useContext(GlobalContext);
 
   const [username, setUsername] = useState('');
@@ -87,7 +89,8 @@ function Register() {
     };
 
     RegisterUser(payload)(authDispatch)((response) => {
-      console.log("RES____:", response)
+      console.log("RES____:", response);
+      history.push('/login');
     });
   };
 
