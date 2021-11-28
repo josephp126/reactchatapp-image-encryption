@@ -15,9 +15,9 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 
 const options = [
-  "Create a merge commit",
-  "Squash and merge",
-  "Rebase and merge",
+  "Turn off notification",
+  "Delete message",
+  "Mark unread",
 ];
 
 function MessageSettingBox() {

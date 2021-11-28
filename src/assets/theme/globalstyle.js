@@ -66,6 +66,11 @@ export const GlobalStyle = createGlobalStyle`
     overflow: auto;
     background: ${({ theme }) => theme.mainPageBg};
   }
+  main.layout-content-main{
+    height: calc(100vh);
+    overflow: auto;
+    background: ${({ theme }) => theme.mainPageBg};
+  }
   .primaryBg{
     background: ${({ theme }) => theme.bgColor};
   }

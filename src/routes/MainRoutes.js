@@ -9,8 +9,8 @@ import Home from "../pages/Main/Home";
 export default (props) => {
   return (
     <>
-      <Header {...props} />
-      <main className="layout-content">
+      {/* <Header {...props} /> */}
+      <main className="layout-content-main">
         <Switch>
           <Route
             path="/home"
