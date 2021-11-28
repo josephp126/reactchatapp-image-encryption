@@ -30,7 +30,9 @@ import {
   user9,
   hashTag,
   dmIcon,
+  logoMain,
 } from "../../assets/images/image";
+import SettingDialog from "../SettingDialog";
 
 const contactList = [
   {
@@ -210,6 +212,15 @@ export default function SideBar() {
   const [openDM, setOpenDM] = useState(true);
   const [openChannel, setOpenChannel] = useState(true);
   const [selectedUserId, setSelectedUserId] = useState(0);
+  const [openSettingdialog, setOpenSettingDialog] = useState(false);
+
+  const handleClickOpenSettingDialog = () => {
+    setOpenSettingDialog(true);
+  };
+
+  const handleCloseSettingDialog = () => {
+    setOpenSettingDialog(false);
+  };
 
   const _onSelectUser = (index) => {
     setSelectedUserId(index);
@@ -219,10 +230,22 @@ export default function SideBar() {
     <Box sx={{ display: "flex", width: "100%", height: "100%", maxWidth: 250 }}>
       <Paper elevation={0} sx={{ minWidth: "100%", minHeight: "100%" }}>
         <FireNav component="nav" disablePadding sx={{ height: "100%" }}>
+          <ListItemButton component="a" href="#customized-list">
+            <ListItemText
+              sx={{ my: 0 }}
+              primary={<img src={logoMain} alt="logo-img" width="100%" />}
+              primaryTypographyProps={{
+                fontSize: 20,
+                fontWeight: "medium",
+                letterSpacing: 0,
+              }}
+            />
+          </ListItemButton>
           <ListItem component="div" disablePadding>
             <SideBarAccount />
-            <Tooltip title="Settings">
+            <Tooltip title="Settings" arrow>
               <IconButton
+                onClick={handleClickOpenSettingDialog}
                 size="large"
                 sx={{
                   "& svg": {
@@ -259,7 +282,7 @@ export default function SideBar() {
             </Tooltip>
           </ListItem>
           <Box
-            sx={{ padding: 1, height: "calc(100% - 72px)", overflow: "auto" }}
+            sx={{ padding: 1, height: "calc(100% - 150px)", overflow: "auto" }}
           >
             <Box>
               <ListItemButton sx={{ height: 56, mb: 1, borderRadius: 2 }}>
@@ -567,6 +590,12 @@ export default function SideBar() {
           </Box>
         </FireNav>
       </Paper>
+      <SettingDialog
+        openSettingdialog={openSettingdialog}
+        setOpenSettingDialog={setOpenSettingDialog}
+        handleClickOpenSettingDialog={handleClickOpenSettingDialog}
+        handleCloseSettingDialog={handleCloseSettingDialog}
+      />
     </Box>
   );
 }

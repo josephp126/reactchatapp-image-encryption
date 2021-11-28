@@ -55,7 +55,7 @@ export const GlobalStyle = createGlobalStyle`
   .text-center{
     text-align:center!important;
   }
-  
+
   .app-bar, .footer-bar{
     background: ${({ theme }) => theme.mainPageBg};
     background-color: ${({ theme }) => theme.mainPageBg};
@@ -172,6 +172,45 @@ export const GlobalStyle = createGlobalStyle`
     border-radius: 5px;
     background: ${({ theme }) => theme.messageConfigBg};
     z-index:1
+  }
+
+  .container{
+    width: 100%;
+    padding: 12px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+
+  @media only screen and (min-width: 1400px){
+    .container{
+      max-width: 1320px;
+    }
+  }
+  @media only screen and (min-width: 1200px) and (max-width: 1400px){
+    .container{
+      max-width: 1140px;
+    }
+  }
+  @media only screen and (min-width: 992px) and (max-width: 1200px){
+    .container{
+      max-width: 960px;
+    }
+  }
+  @media only screen and (min-width: 768px) and (max-width: 992px){
+    .container{
+      max-width: 720px;
+    }
+  }
+  @media only screen and (min-width: 576px) and (max-width: 768px){
+    .container{
+      max-width: 540px;
+    }
+  }
+  @media only screen and (max-width: 576px){
+    .container{
+      max-width: 100%;
+    }
   }
 
   @media only screen and (max-width: 600px){
