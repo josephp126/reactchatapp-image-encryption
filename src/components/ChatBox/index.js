@@ -18,8 +18,8 @@ import { user1, userPhoto } from "../../assets/images/image";
 import { useState } from "react";
 import DateDivider from "../DateDivider";
 import { useEffect } from "react";
-import groupDays from "../../helpers/groupDays";
-import MessageList from "../../db/chat/MessageList";
+import groupDays from "helpers/groupDays";
+import MessageList from "db/chat/MessageList";
 import moment from "moment";
 import MessageSettingBox from "../MessageSettingBox";
 

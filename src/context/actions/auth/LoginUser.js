@@ -3,8 +3,8 @@ import {
   LOGIN_FAIL,
   LOGIN_LOADING,
   LOGIN_SUCCESS,
-} from "../../../constants/ActionTypes";
-import callApi from "../../../helpers/callApi";
+} from "constants/ActionTypes";
+import callApi from "helpers/callApi";
 
 export default ({ email, password }) =>
   (dispatch) => {

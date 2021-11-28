@@ -1,7 +1,7 @@
 import {
   user1,
   userPhoto,
-} from '../../../assets/images/image'
+} from 'assets/images/image'
 
 const messageList = [
   {

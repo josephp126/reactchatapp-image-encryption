@@ -3,7 +3,7 @@ import Backdrop from "@mui/material/Backdrop";
 import { Box } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import { GlobalContext } from "../context/Provider";
+import { GlobalContext } from "context/Provider";
 import AuthRoutes from "./AuthRoutes";
 import MainRoutes from "./MainRoutes";
 

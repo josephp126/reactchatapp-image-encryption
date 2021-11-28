@@ -15,9 +15,9 @@ import MailIcon from '@mui/icons-material/Mail';
 import PersonIcon from '@mui/icons-material/Person';
 import IconButton from "@mui/material/IconButton";
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
-import { logo } from "../../../assets/images/image";
-import RegisterUser from "../../../context/actions/auth/RegisterUser";
-import { GlobalContext } from "../../../context/Provider";
+import { logo } from "assets/images/image";
+import RegisterUser from "context/actions/auth/RegisterUser";
+import { GlobalContext } from "context/Provider";
 
 function Register() {
   const { authState, authDispatch } = useContext(GlobalContext);

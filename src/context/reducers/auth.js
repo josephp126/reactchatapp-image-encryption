@@ -8,7 +8,7 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   CLEAR_AUTH_STATE,
-} from "../../constants/ActionTypes";
+} from "constants/ActionTypes";
 const auth = (state, { type, payload }) => {
   switch (type) {
     case REGISTER_LOADING:

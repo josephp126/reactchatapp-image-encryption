@@ -1,6 +1,6 @@
 /* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
-import { LOGOUT_USER } from "../../../constants/ActionTypes";
-import callApi from "../../../helpers/callApi";
+import { LOGOUT_USER } from "constants/ActionTypes";
+import callApi from "helpers/callApi";
 
 export default () => (dispatch) => {
   callApi

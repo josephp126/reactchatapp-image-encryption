@@ -4,8 +4,8 @@ import {
   REGISTER_FAIL,
   REGISTER_LOADING,
   REGISTER_SUCCESS,
-} from "../../../constants/ActionTypes";
-import callApi from "../../../helpers/callApi";
+} from "constants/ActionTypes";
+import callApi from "helpers/callApi";
 
 
 export const clearAuthState = () => (dispatch) => {

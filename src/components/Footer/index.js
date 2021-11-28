@@ -1,6 +1,6 @@
 import React from "react";
 import { AppBar,  Toolbar, } from "@mui/material";
-import { logoMain } from "../../assets/images/image";
+import { logoMain } from "assets/images/image";
 
 function Footer() {
   return (

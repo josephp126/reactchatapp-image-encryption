@@ -31,7 +31,7 @@ import {
   hashTag,
   dmIcon,
   logoMain,
-} from "../../assets/images/image";
+} from "assets/images/image";
 import SettingDialog from "../SettingDialog";
 
 const contactList = [

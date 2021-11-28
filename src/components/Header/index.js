@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import { logoMain } from "../../assets/images/image";
+import { logoMain } from "assets/images/image";
 import { useLocation, Link } from "react-router-dom";
-import { GlobalContext } from "../../context/Provider";
-import ThemeToggle from "../../assets/theme/themetoggle";
-// import ThemeToggle from '../../assets/theme/themetoggle'
+import { GlobalContext } from "context/Provider";
+import ThemeToggle from "assets/theme/themetoggle";
+// import ThemeToggle from 'assets/theme/themetoggle'
 
 function Header() {
   const location = useLocation();
@@ -35,13 +35,12 @@ function Header() {
             <Box sx={{ flexGrow: 1 }}>
               <img src={logoMain} alt="logo" className="logo-img" />
             </Box>
-            
+
             {isLogin ? (
               <>
-              <Link to="/logout" className="nav-link">
-                Logout
-              </Link>
-
+                <Link to="/logout" className="nav-link">
+                  Logout
+                </Link>
               </>
             ) : isLoginPage ? (
               <Link to="/register" className="nav-link">

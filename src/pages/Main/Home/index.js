@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, Box } from "@mui/material";
-import SideBar from "../../../components/SideBar";
-import ChatBox from "../../../components/ChatBox";
+import SideBar from "components/SideBar";
+import ChatBox from "components/ChatBox";
 
 function Home() {
   return (

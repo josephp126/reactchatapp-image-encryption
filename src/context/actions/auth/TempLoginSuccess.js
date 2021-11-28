@@ -1,5 +1,5 @@
 /* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
-import { LOGIN_SUCCESS } from "../../../constants/ActionTypes";
+import { LOGIN_SUCCESS } from "constants/ActionTypes";
 
 export default (payload) => (dispatch) => {
   dispatch({

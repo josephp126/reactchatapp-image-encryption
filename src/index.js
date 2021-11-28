@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import reportWebVitals from "./reportWebVitals";
-import GlobalProvider from "./context/Provider";
+import reportWebVitals from "reportWebVitals";
+import GlobalProvider from "context/Provider";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
-import Routes from "./routes";
-import { ThemeProvider } from "./context/ThemeProvider";
-import { GlobalStyle } from "./assets/theme/globalstyle";
-import DefaultThemeProvider from "./context/DefaultThemeProvider";
+import Routes from "routes";
+import { ThemeProvider } from "context/ThemeProvider";
+import { GlobalStyle } from "assets/theme/globalstyle";
+import DefaultThemeProvider from "context/DefaultThemeProvider";
 
 ReactDOM.render(
   <GlobalProvider>

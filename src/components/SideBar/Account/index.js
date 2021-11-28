@@ -3,7 +3,7 @@ import { Avatar } from "@mui/material";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { userPhoto } from "../../../assets/images/image";
+import { userPhoto } from "assets/images/image";
 
 function SideBarAccount() {
   return (

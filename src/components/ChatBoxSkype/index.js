@@ -14,7 +14,7 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { user1, userPhoto } from "../../assets/images/image";
+import { user1, userPhoto } from "assets/images/image";
 import { useState } from "react";
 
 function ChatBoxSkype() {

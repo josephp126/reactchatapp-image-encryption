@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { useTheme } from "../../context/ThemeProvider";
-import ThemeToggle from "../../assets/theme/themetoggle";
+import { useTheme } from "context/ThemeProvider";
+import ThemeToggle from "assets/theme/themetoggle";
 
 const AppLayout = ({ children }) => {
   const [ThemeMode, toggleTheme] = useTheme();

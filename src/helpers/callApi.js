@@ -1,6 +1,6 @@
 import axios from "axios";
-import BasicUrl from "../config/env";
-import { navigate } from "../routes/RootNavigator";
+import BasicUrl from "config/env";
+import { navigate } from "routes/RootNavigator";
 
 let headers = {};
 

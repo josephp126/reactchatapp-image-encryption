@@ -1,7 +1,7 @@
 import { Backdrop, CircularProgress } from "@mui/material";
 import React, { useContext, useEffect } from "react";
-import LogoutUser from "../../../context/actions/auth/LogoutUser";
-import { GlobalContext } from "../../../context/Provider";
+import LogoutUser from "context/actions/auth/LogoutUser";
+import { GlobalContext } from "context/Provider";
 
 const Logout = () => {
   const { authDispatch } = useContext(GlobalContext);

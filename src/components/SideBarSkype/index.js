@@ -39,7 +39,7 @@ import {
   user8,
   user9,
   userPhoto,
-} from "../../assets/images/image";
+} from "assets/images/image";
 
 function SideBarSkype() {
   const theme = useTheme();

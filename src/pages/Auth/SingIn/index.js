@@ -10,12 +10,12 @@ import {
 } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
-import { logo } from "../../../assets/images/image";
+import { logo } from "assets/images/image";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
-import TempLoginSuccess from "../../../context/actions/auth/TempLoginSuccess";
-import { GlobalContext } from "../../../context/Provider";
-import LoginUser from "../../../context/actions/auth/LoginUser";
+import TempLoginSuccess from "context/actions/auth/TempLoginSuccess";
+import { GlobalContext } from "context/Provider";
+import LoginUser from "context/actions/auth/LoginUser";
 
 function SingIn() {
   const { authDispatch } = useContext(GlobalContext);
