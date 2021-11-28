@@ -23,7 +23,7 @@ export default (props) => {
           <Redirect to="/login" />
         </Switch>
       </main>
-      <Footer {...props} />
+      {/* <Footer {...props} /> */}
     </>
   );
 };

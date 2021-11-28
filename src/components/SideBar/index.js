@@ -230,7 +230,7 @@ export default function SideBar() {
     <Box sx={{ display: "flex", width: "100%", height: "100%", maxWidth: 250 }}>
       <Paper elevation={0} sx={{ minWidth: "100%", minHeight: "100%" }}>
         <FireNav component="nav" disablePadding sx={{ height: "100%" }}>
-          <ListItemButton component="a" href="#customized-list">
+          <ListItemButton component="a">
             <ListItemText
               sx={{ my: 0 }}
               primary={<img src={logoMain} alt="logo-img" width="100%" />}

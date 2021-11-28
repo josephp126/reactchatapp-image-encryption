@@ -22,6 +22,7 @@ import { Grid, Box, ListItemButton, ListItemIcon } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 import AppearanceSetting from "./Appearance";
+import { useLocation, Link } from "react-router-dom";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -45,6 +46,10 @@ export default function SettingDialog({
       >
         <AppBar sx={{ position: "relative" }}>
           <Toolbar>
+            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+              Settings
+            </Typography>
+
             <IconButton
               edge="start"
               color="inherit"
@@ -53,21 +58,11 @@ export default function SettingDialog({
             >
               <CloseIcon />
             </IconButton>
-            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Sound
-            </Typography>
-            <Button
-              autoFocus
-              color="inherit"
-              onClick={handleCloseSettingDialog}
-            >
-              save
-            </Button>
           </Toolbar>
         </AppBar>
         <Grid container className="container h-100">
           <Grid item xs={12} md={4}>
-            <Box>
+            <Box sx={{ pt: 4 }}>
               <Typography
                 textOverflow="ellipsis"
                 overflow="hidden"
@@ -159,6 +154,8 @@ export default function SettingDialog({
               </ListItemButton>
               <Divider sx={{ my: 2 }} />
               <ListItemButton
+                component="a"
+                href="/logout"
                 sx={{
                   minHeight: 32,
                   color: "rgba(255,255,255,.8)",
@@ -166,7 +163,6 @@ export default function SettingDialog({
                   borderRadius: 2,
                 }}
                 color="error"
-                onClick={() => console.log("log out")}
               >
                 <ListItemIcon>
                   <LogoutIcon color="error" />

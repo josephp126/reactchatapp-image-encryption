@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Box, ListItemButton, ListItemIcon } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
@@ -7,6 +7,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import { useTheme } from "../../../context/ThemeProvider";
 
 const BpIcon = styled("span")(({ theme }) => ({
   borderRadius: "50%",
@@ -71,32 +72,43 @@ function BpRadio(props) {
   );
 }
 
-const selectThemeMode = (val) => {
-  console.log(val);
-}
-
 function AppearanceSetting() {
+  const [ThemeMode, toggleTheme] = useTheme();
+  const [mode, setMode] = useState(ThemeMode);
+  const selectThemeMode = (e) => {
+    console.log(e.target.value);
+    setMode(e.target.value);
+    toggleTheme(e.target.value);
+  };
+
   return (
     <Box>
       <Typography whiteSpace="nowrap" fontSize={20} fontWeight="bold">
         Appearance
       </Typography>
-      <FormControl component="fieldset">
-        <RadioGroup
-          defaultValue="dark"
-          aria-label="gender"
-          name="customized-radios"
-          onChange={(e) => {selectThemeMode(e)}}
-        >
-          <FormControlLabel value="dark" control={<BpRadio />} label="Dark" />
-          <FormControlLabel value="light" control={<BpRadio />} label="Light" />
-          <FormControlLabel
-            value="os"
-            control={<BpRadio />}
-            label="Sync with computer"
-          />
-        </RadioGroup>
-      </FormControl>
+      <Box sx={{ mt: 3 }}>
+        <FormControl component="fieldset">
+          <RadioGroup
+            defaultValue="dark"
+            aria-label="mode"
+            name="customized-radios"
+            value={mode}
+            onChange={selectThemeMode}
+          >
+            <FormControlLabel value="dark" control={<BpRadio />} label="Dark" />
+            <FormControlLabel
+              value="light"
+              control={<BpRadio />}
+              label="Light"
+            />
+            <FormControlLabel
+              value="os"
+              control={<BpRadio />}
+              label="Sync with computer"
+            />
+          </RadioGroup>
+        </FormControl>
+      </Box>
     </Box>
   );
 }
