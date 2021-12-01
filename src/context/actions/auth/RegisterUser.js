@@ -7,7 +7,6 @@ import {
 } from "constants/ActionTypes";
 import callApi from "helpers/callApi";
 
-
 export const clearAuthState = () => (dispatch) => {
   dispatch({
     type: CLEAR_AUTH_STATE,
@@ -21,6 +20,7 @@ export default (payload) => (dispatch) => (onSuccess) => {
   console.log("=========== payload:", payload);
   callApi
     .post("/auth/signup", {
+      username: payload.username,
       email: payload.email,
       password: payload.password,
     })
