@@ -9,7 +9,7 @@ import {GlobalContext} from 'context/Provider'
 function SideBarAccount() {
   const {authState} = useContext(GlobalContext);
   useEffect(() => {
-    console.log("authState", authState)
+    console.log("authState", authState.data)
   }, []);
   return (
     <ListItemButton component="div">
@@ -18,7 +18,7 @@ function SideBarAccount() {
       </ListItemIcon>
       <ListItemText
         sx={{ my: 0 }}
-        primary="Tommy"
+        primary={authState.data.username}
         primaryTypographyProps={{
           fontSize: 20,
           fontWeight: "medium",

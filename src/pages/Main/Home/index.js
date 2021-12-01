@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Grid, Box } from "@mui/material";
 import SideBar from "components/SideBar";
 import ChatBox from "components/ChatBox";
+import callApi from "helpers/callApi";
+import { GlobalContext } from "context/Provider";
 
 function Home() {
+  const { authState } = useContext(GlobalContext);
+  const [friends, setFriends] = useState([]);
+  useEffect(() => {
+    const getFriends = async () => {
+      await callApi
+        .get(`/friend/${authState.data.id}`)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    getFriends();
+  }, []);
   return (
     <Box className="w-100 h-100">
       <Grid container spacing={0} className="h-100" mt={0}>

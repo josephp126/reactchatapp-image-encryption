@@ -78,7 +78,6 @@ function ChatBox() {
 
   const renderChatHistory = () => {
     return chatHistoryList.map((chatItem, index) => {
-      console.log(chatItem);
       if (chatItem.type && chatItem.type === "day") {
         return <DateDivider date={chatItem.date} />;
       } else {
@@ -87,11 +86,11 @@ function ChatBox() {
             sx={{ mr: "auto", py: 1 }}
             className="chat-detail-message-con"
             onMouseEnter={() => {
-              console.log("______Entered!!!");
+              // console.log("______Entered!!!");
               showWidgets(index);
             }}
             onMouseLeave={() => {
-              console.log("++++++Leaved!!!");
+              // console.log("++++++Leaved!!!");
               hideWidgets(index);
             }}
           >

@@ -25,7 +25,7 @@ export default (payload) => (dispatch) => (onSuccess) => {
       password: payload.password,
     })
     .then((res) => {
-      console.log("________________________________________________", res.data);
+      localStorage.setItem("token", res.data.accessToken);
       dispatch({
         type: REGISTER_SUCCESS,
         payload: res.data,
