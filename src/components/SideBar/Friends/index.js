@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -6,103 +6,9 @@ import ListItemText from "@mui/material/ListItemText";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import { Avatar, Badge, Chip, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import {
-  friends,
-  user1,
-  user2,
-  user3,
-  user4,
-  user5,
-  user6,
-  user7,
-  user8,
-  user9,
-  dmIcon,
-} from "assets/images/image";
-
-const contactList = [
-  {
-    id: 1,
-    name: "sammie",
-    avatar: user1,
-    timeAgo: "a month ago",
-    lastMessage:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi",
-    unReadMessageCnt: 0,
-  },
-  {
-    id: 2,
-    name: "Tommy",
-    avatar: user2,
-    timeAgo: "a sec ago",
-    lastMessage:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi",
-    unReadMessageCnt: 4,
-  },
-  {
-    id: 3,
-    name: "Gammie sammie",
-    avatar: user3,
-    timeAgo: "3 mins ago",
-    lastMessage:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi",
-    unReadMessageCnt: 300,
-  },
-  {
-    id: 4,
-    name: "Hommy",
-    avatar: user4,
-    timeAgo: "a year ago",
-    lastMessage:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi",
-    unReadMessageCnt: 7,
-  },
-  {
-    id: 5,
-    name: "Bommie",
-    avatar: user5,
-    timeAgo: "39 mins ago",
-    lastMessage:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi",
-    unReadMessageCnt: 2,
-  },
-  {
-    id: 6,
-    name: "Jammy",
-    avatar: user6,
-    timeAgo: "a few seconds ago",
-    lastMessage:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi",
-    unReadMessageCnt: 6,
-  },
-  {
-    id: 7,
-    name: "Lummy",
-    avatar: user7,
-    timeAgo: "a month ago",
-    lastMessage:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi",
-    unReadMessageCnt: 304,
-  },
-  {
-    id: 8,
-    name: "Vammie",
-    avatar: user8,
-    timeAgo: "2mins ago",
-    lastMessage:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi",
-    unReadMessageCnt: 0,
-  },
-  {
-    id: 9,
-    name: "Commie",
-    avatar: user9,
-    timeAgo: "a few seconds ago",
-    lastMessage:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum animi",
-    unReadMessageCnt: 10,
-  },
-];
+import { friends, dmIcon } from "assets/images/image";
+import SelectChat from "context/actions/chat/SelectChat";
+import { GlobalContext } from "context/Provider";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -133,8 +39,22 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-function Friends({ selectedUserId, _onSelectUser }) {
+function Friends({ friendList, selectedUserId }) {
+  const {selectedChatDispatch} = useContext(GlobalContext); 
   const [openDM, setOpenDM] = useState(true);
+
+  const _onSelectFriend = (friend) => {
+    console.log(friend);
+    let payload = {
+      type: "dm",
+      selectedChat: friend,
+    };
+    SelectChat(payload)(selectedChatDispatch);
+  };
+
+  useEffect(() => {
+    console.log("friends-------------------------friends: ", friendList);
+  }, [friendList]);
 
   return (
     <Box>
@@ -216,11 +136,11 @@ function Friends({ selectedUserId, _onSelectUser }) {
         </ListItemButton>
       </Box>
       {openDM &&
-        contactList.map((contact, index) => (
+        friendList.map((item, index) => (
           <ListItemButton
             selected={selectedUserId === index}
-            onClick={() => _onSelectUser(index)}
-            key={contact.id}
+            onClick={() => {_onSelectFriend(item)}}
+            key={item._id}
             sx={{
               py: 1,
               minHeight: 32,
@@ -238,11 +158,17 @@ function Friends({ selectedUserId, _onSelectUser }) {
                 }}
                 variant="dot"
               >
-                <Avatar
-                  alt={contact.name}
-                  src={contact.avatar}
-                  sx={{ width: 30, height: 30 }}
-                />
+                {item.friend.avatar == "" ? (
+                  <Avatar sx={{ bgcolor: item.friend.avatarColor }}>
+                    {item.friend.username[0]}
+                  </Avatar>
+                ) : (
+                  <Avatar
+                    alt={item.friend.username}
+                    src={item.friend.avatar}
+                    sx={{ width: 30, height: 30 }}
+                  />
+                )}
               </StyledBadge>
             </ListItemIcon>
             <ListItemText
@@ -255,15 +181,15 @@ function Friends({ selectedUserId, _onSelectUser }) {
                     whiteSpace="nowrap"
                     fontSize={14}
                   >
-                    {contact.name}
+                    {item.friend.username}
                   </Typography>
-                  {contact.unReadMessageCnt > 0 && (
+                  {item.unReadMessageCnt > 0 && (
                     <Chip
                       color="warning"
                       label={
-                        contact.unReadMessageCnt > 99
+                        item.unReadMessageCnt > 99
                           ? "+99"
-                          : contact.unReadMessageCnt
+                          : item.unReadMessageCnt
                       }
                       size={"small"}
                       sx={{ fontSize: 12, width: 50, height: 20 }}

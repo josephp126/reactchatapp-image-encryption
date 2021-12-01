@@ -83,7 +83,7 @@ const FireNav = styled(List)({
   },
 });
 
-export default function SideBar() {
+export default function SideBar({ friends }) {
   const [openDM, setOpenDM] = useState(true);
   const [openChannel, setOpenChannel] = useState(true);
   const [selectedUserId, setSelectedUserId] = useState(0);
@@ -159,10 +159,7 @@ export default function SideBar() {
           <Box
             sx={{ padding: 1, height: "calc(100% - 150px)", overflow: "auto" }}
           >
-            <Friends
-              selectedUserId={selectedUserId}
-              _onSelectUser={_onSelectUser}
-            />
+            <Friends friendList={friends} selectedUserId={selectedUserId} />
             <Box>
               <Box
                 sx={{
