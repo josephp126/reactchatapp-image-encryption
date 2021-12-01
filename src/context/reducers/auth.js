@@ -22,13 +22,14 @@ const auth = (state, { type, payload }) => {
         ...state,
         loading: false,
         data: payload,
-        error: null
+        error: null,
+        isLogin: true,
       };
 
     case LOGIN_SUCCESS:
       return {
         ...state,
-        ...payload,
+        data: payload,
         isLogin: true,
         error: null
       };
