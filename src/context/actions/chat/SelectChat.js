@@ -3,20 +3,21 @@ import { SELECT_CHAT } from "constants/ActionTypes";
 import callApi from "helpers/callApi";
 
 export default ({ type, selectedChat }) =>
-  (dispatch) => {
+  (dispatch) =>
+  (onSuccess) => {
     dispatch({
       type: SELECT_CHAT,
       payload: {
         type: type,
-        selectedChat: selectedChat
+        selectedChat: selectedChat,
       },
     });
     callApi
       .get(`/message/${selectedChat.id}`)
       .then((res) => {
-        console.log(")))))))))))))))))))))))))))))))))))))", res);
+        onSuccess(res.data);
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
       });
   };

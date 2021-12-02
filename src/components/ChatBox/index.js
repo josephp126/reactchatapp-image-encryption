@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   Box,
   TextField,
@@ -14,6 +14,7 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import SendIcon from "@mui/icons-material/Send";
 import { user1, userPhoto } from "../../assets/images/image";
 import { useState } from "react";
 import DateDivider from "../DateDivider";
@@ -25,10 +26,11 @@ import MessageSettingBox from "../MessageSettingBox";
 
 // let chatHistoryList = [];
 
-function ChatBox() {
-  const [message, setMessage] = useState("");
+function ChatBox({ currentChat, messages, sendMessage }) {
+  const [newMessage, setNewMessage] = useState("");
   const [chatHistoryList, setChatHistoryList] = useState([]);
   const [showWidgetId, setShowWidgetId] = useState(-1);
+  const scrollRef = useRef();
 
   const _onSearchMessage = () => {};
 
@@ -68,6 +70,17 @@ function ChatBox() {
     e.preventDefault();
   };
 
+  const _onSendMessage = () => {
+    if (newMessage.trim() == "") return;
+    sendMessage(newMessage);
+    setNewMessage("");
+    console.log("clicked upload File icon");
+  };
+
+  const _onMouseDownSendMessage = (e) => {
+    e.preventDefault();
+  };
+
   const showWidgets = (index) => {
     setShowWidgetId(index);
   };
@@ -78,11 +91,12 @@ function ChatBox() {
 
   const renderChatHistory = () => {
     return chatHistoryList.map((chatItem, index) => {
-      if (chatItem.type && chatItem.type === "day") {
+      if (chatItem.type === "day") {
         return <DateDivider date={chatItem.date} />;
       } else {
         return (
           <Box
+            ref={scrollRef}
             sx={{ mr: "auto", py: 1 }}
             className="chat-detail-message-con"
             onMouseEnter={() => {
@@ -94,12 +108,14 @@ function ChatBox() {
               hideWidgets(index);
             }}
           >
-            {!chatHistoryList[index - 1].type &&
-            chatHistoryList[index - 1].sender.id == chatItem.sender.id ? (
+            {chatHistoryList[index - 1].type == "text" &&
+            chatHistoryList[index - 1].sender.id ==
+              chatHistoryList[index].sender.id ? (
               <Box display="flex" alignItems="flex-start" sx={{ px: 2 }}>
-                <Box sx={{ width: 60}}>
+                <Box sx={{ width: 60 }}>
                   <Typography fontSize={14} sx={{ paddingLeft: 0.8 }}>
-                    { index == showWidgetId && moment(chatItem.created_at, "HH:mm:ss").format("mm:ss")}
+                    {index == showWidgetId &&
+                      moment(chatItem.createdAt, "HH:mm:ss").format("hh:mm")}
                   </Typography>
                 </Box>
                 <Box
@@ -107,13 +123,26 @@ function ChatBox() {
                   flexDirection="column"
                   className={"w-100 message-receive-con"}
                 >
-                  <Typography>{chatItem.msg}</Typography>
+                  <Typography>{chatItem.content}</Typography>
                 </Box>
               </Box>
             ) : (
               <Box display="flex" alignItems="flex-start" sx={{ px: 2 }}>
                 <Box sx={{ width: 60 }}>
-                  <Avatar alt="user photo" src={chatItem.sender.avatar} />
+                  {chatItem.sender.avatar == "" ? (
+                    <Avatar
+                      sx={{
+                        bgcolor: chatItem.sender.avatarColor,
+                      }}
+                    >
+                      {chatItem.sender.username[0].toUpperCase()}
+                    </Avatar>
+                  ) : (
+                    <Avatar
+                      alt={chatItem.sender.username}
+                      src={chatItem.sender.avatar}
+                    />
+                  )}
                 </Box>
                 <Box
                   display="flex"
@@ -122,20 +151,17 @@ function ChatBox() {
                 >
                   <Box display="flex" alignItems="center">
                     <Typography fontWeight="bold" fontSize={16}>
-                      {chatItem.sender.name}
+                      {chatItem.sender.username}
                     </Typography>
                     <Typography fontSize={14} sx={{ paddingLeft: 0.8 }}>
-                      {moment(chatItem.created_at, "HH:mm:ss").format("mm:ss")}
+                      {moment(chatItem.createdAt, "HH:mm:ss").format("hh:mm A")}
                     </Typography>
                   </Box>
-                  <Typography>{chatItem.msg}</Typography>
+                  <Typography>{chatItem.content}</Typography>
                 </Box>
               </Box>
             )}
-            {
-              index == showWidgetId &&
-              <MessageSettingBox />
-            }
+            {index == showWidgetId && <MessageSettingBox />}
           </Box>
         );
       }
@@ -143,12 +169,16 @@ function ChatBox() {
   };
 
   useEffect(() => {
-    let items = groupDays(MessageList);
-    console.log("+++++++++++++", items);
+    let items = groupDays(messages);
+    console.log("sssss", scrollRef);
     items = items.reverse();
     setChatHistoryList([...items]);
     console.log("chatHistoryList: ", chatHistoryList);
-  }, []);
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  useEffect(() => {
+  }, [messages]);
 
   return (
     <Box
@@ -167,11 +197,25 @@ function ChatBox() {
           sx={{ px: 2, py: 1 }}
         >
           <Box sx={{ pr: 2 }}>
-            <Avatar
-              alt="Remy Sharp"
-              src={user1}
-              sx={{ width: 40, height: 40 }}
-            />
+            {currentChat == null ? (
+              <Avatar />
+            ) : currentChat.selectedChat.friend.avatar == "" ? (
+              <Avatar
+                sx={{
+                  bgcolor: currentChat.selectedChat.friend.avatarColor,
+                  width: 40,
+                  height: 40,
+                }}
+              >
+                {currentChat.selectedChat.friend.username[0].toUpperCase()}
+              </Avatar>
+            ) : (
+              <Avatar
+                alt={currentChat.selectedChat.friend.username}
+                src={currentChat.selectedChat.friend.avatar}
+                sx={{ width: 40, height: 40 }}
+              />
+            )}
           </Box>
           <Typography
             textOverflow="ellipsis"
@@ -180,7 +224,9 @@ function ChatBox() {
             width="100%"
             fontWeight="bold"
           >
-            Jhon Sammie
+            {currentChat == null
+              ? "Please select chat"
+              : currentChat.selectedChat.friend.username}
             <Badge
               color="success"
               overlap="circular"
@@ -222,9 +268,9 @@ function ChatBox() {
             fullWidth
             className="primaryFontColor"
             margin="none"
-            value={message}
+            value={newMessage}
             onChange={(e) => {
-              setMessage(e.target.value);
+              setNewMessage(e.target.value);
             }}
             InputProps={{
               endAdornment: (
@@ -256,6 +302,13 @@ function ChatBox() {
                     onMouseDown={_onMouseDownMoreSetting}
                   >
                     <MoreHorizIcon />
+                  </IconButton>
+                  <IconButton
+                    aria-label="send message"
+                    onClick={_onSendMessage}
+                    onMouseDown={_onMouseDownSendMessage}
+                  >
+                    <SendIcon />
                   </IconButton>
                 </InputAdornment>
               ),

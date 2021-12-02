@@ -2,7 +2,7 @@ import moment from 'moment';
 
 function groupedDays(messages) {
   return messages.reduce((acc, el, i) => {
-    const messageDay = moment(el.created_at).format('YYYY-MM-DD');
+    const messageDay = moment(el.createdAt).format('YYYY-MM-DD');
     if (acc[messageDay]) {
       return { ...acc, [messageDay]: acc[messageDay].concat([el]) };
     }
@@ -17,7 +17,7 @@ function groupDays(messages) {
   );
   const items = sortedDays.reduce((acc, date) => {
     const sortedMessages = days[date].sort(
-      (x, y) => new Date(y.created_at) - new Date(x.created_at)
+      (x, y) => new Date(y.createdAt) - new Date(x.createdAt)
     );
     return acc.concat([...sortedMessages, { type: 'day', date, id: date }]);
   }, []);

@@ -83,7 +83,7 @@ const FireNav = styled(List)({
   },
 });
 
-export default function SideBar({ friends }) {
+export default function SideBar({ friends, currentChat, selectCurrentChat }) {
   const [openDM, setOpenDM] = useState(true);
   const [openChannel, setOpenChannel] = useState(true);
   const [selectedUserId, setSelectedUserId] = useState(0);
@@ -99,6 +99,15 @@ export default function SideBar({ friends }) {
 
   const _onSelectUser = (index) => {
     setSelectedUserId(index);
+  };
+
+  const _onSelectFriend = (friend) => {
+    console.log("friend", friend);
+    let payload = {
+      type: "dm",
+      selectedChat: friend,
+    };
+    selectCurrentChat(payload);
   };
 
   return (
@@ -159,7 +168,11 @@ export default function SideBar({ friends }) {
           <Box
             sx={{ padding: 1, height: "calc(100% - 150px)", overflow: "auto" }}
           >
-            <Friends friendList={friends} selectedUserId={selectedUserId} />
+            <Friends
+              friendList={friends}
+              currentChat={currentChat}
+              _onSelectFriend={_onSelectFriend}
+            />
             <Box>
               <Box
                 sx={{

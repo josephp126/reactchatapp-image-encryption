@@ -39,21 +39,23 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-function Friends({ friendList, selectedUserId }) {
-  const {selectedChatDispatch} = useContext(GlobalContext); 
+function Friends({ friendList, currentChat, _onSelectFriend }) {
+  const { selectedChatDispatch } = useContext(GlobalContext);
   const [openDM, setOpenDM] = useState(true);
 
-  const _onSelectFriend = (friend) => {
-    console.log(friend);
-    let payload = {
-      type: "dm",
-      selectedChat: friend,
-    };
-    SelectChat(payload)(selectedChatDispatch);
-  };
+  // const _onSelectFriend = (friend) => {
+  //   console.log(friend);
+  //   let payload = {
+  //     type: "dm",
+  //     selectedChat: friend,
+  //   };
+  //   SelectChat(payload)(selectedChatDispatch)((response) => {
+  //     console.log("RES____:", response);
+  //   });
+  // };
 
   useEffect(() => {
-    console.log("friends-------------------------friends: ", friendList);
+    console.log("friends-------------------------friends: ", currentChat);
   }, [friendList]);
 
   return (
@@ -138,8 +140,11 @@ function Friends({ friendList, selectedUserId }) {
       {openDM &&
         friendList.map((item, index) => (
           <ListItemButton
-            selected={selectedUserId === index}
-            onClick={() => {_onSelectFriend(item)}}
+            selected={currentChat?.selectedChat.id === item.id}
+            onClick={() => {
+              if(currentChat?.selectedChat.id === item.id) return;
+              _onSelectFriend(item);
+            }}
             key={item._id}
             sx={{
               py: 1,
@@ -160,7 +165,7 @@ function Friends({ friendList, selectedUserId }) {
               >
                 {item.friend.avatar == "" ? (
                   <Avatar sx={{ bgcolor: item.friend.avatarColor }}>
-                    {item.friend.username[0]}
+                    {item.friend.username[0].toUpperCase()}
                   </Avatar>
                 ) : (
                   <Avatar

@@ -12,7 +12,6 @@ const callApi = axios.create({
 callApi.interceptors.request.use(
   async (config) => {
     const token = await localStorage.getItem("token");
-    console.log("TOKEN: ", token)
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
