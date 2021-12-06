@@ -1,5 +1,5 @@
 import axios from "axios";
-import BasicUrl from "config/env";
+import { BasicUrl } from "config/env";
 import { navigate } from "routes/RootNavigator";
 
 let headers = {};
@@ -29,7 +29,7 @@ callApi.interceptors.response.use(
     }),
   (error) => {
     if (error.response.status === 403 || error.response.status === 401) {
-      navigate('/logout', { tokenExpired: true });
+      navigate("/logout", { tokenExpired: true });
     } else {
       return new Promise((resolve, reject) => {
         reject(error);

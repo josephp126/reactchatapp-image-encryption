@@ -4,7 +4,8 @@ import SideBar from "components/SideBar";
 import ChatBox from "components/ChatBox";
 import callApi from "helpers/callApi";
 import { GlobalContext } from "context/Provider";
-import {io} from 'socket.io-client'
+import { io } from "socket.io-client";
+import { AppUrl } from "config/env";
 
 function Home() {
   const { authState } = useContext(GlobalContext);
@@ -47,8 +48,12 @@ function Home() {
       type: "text",
       // createdAt: new Date().toUTCString(),
       // updatedAt: new Date().toUTCString(),
-      createdAt: new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString(),
-      updatedAt: new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString(),
+      createdAt: new Date(
+        new Date().toString().split("GMT")[0] + " UTC"
+      ).toISOString(),
+      updatedAt: new Date(
+        new Date().toString().split("GMT")[0] + " UTC"
+      ).toISOString(),
     };
 
     console.log("pushMessage", pushMessage);
@@ -77,6 +82,16 @@ function Home() {
     };
     getFriends();
   }, []);
+
+  useEffect(() => {
+    setSocket(io(AppUrl));
+  }, []);
+
+  useEffect(() => {
+    // socket.on("welcome", (msg) => {
+    //   console.log(msg);
+    // });
+  }, [socket]);
 
   // useEffect(() => {
   //   scrollRef.current?.scrollIntoView({ behavior: "smooth" });
