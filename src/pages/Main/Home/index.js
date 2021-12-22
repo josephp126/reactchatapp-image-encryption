@@ -7,7 +7,7 @@ import { GlobalContext } from "context/Provider";
 import { io } from "socket.io-client";
 import { AppUrl } from "config/env";
 
-let socket = io(AppUrl);
+// let socket = io(AppUrl);
 
 function Home() {
   const { authState } = useContext(GlobalContext);
@@ -15,6 +15,8 @@ function Home() {
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
   // const socket = useRef();
+  const socketRef = useRef()
+
 
   const selectCurrentChat = (payload) => {
     console.log("payload", payload);
@@ -62,6 +64,7 @@ function Home() {
 
     console.log("pushMessage", pushMessage);
     setMessages([...messages, pushMessage]);
+    socketRef.current.emit("sendMessage", pushMessage)
     callApi
       .post(`/message`, payload)
       .then((res) => {
@@ -92,13 +95,24 @@ function Home() {
   // }, []);
 
 
-  useEffect(() => {
-    console.log("socket", socket);
-    socket.emit("addUser", authState.data.id);
-    socket.on("getUsers", (users) => {
-      console.log("USERS: ", users);
-    });
-  }, [authState]);
+  // useEffect(() => {
+  //   console.log("socket", socket);
+  //   socket.emit("addUser", authState.data.id);
+  //   socket.on("getUsers", (users) => {
+  //     console.log("USERS: ", users);
+  //   });
+  // }, [authState]);
+
+  useEffect(
+		() => {
+			socketRef.current = io.connect(AppUrl)
+			socketRef.current.on("getMessage", (pushMessage) => {
+				setMessages([...messages, pushMessage]);
+			})
+			return () => socketRef.current.disconnect()
+		},
+		[ messages ]
+	)
 
   // useEffect(() => {
   //   scrollRef.current?.scrollIntoView({ behavior: "smooth" });
