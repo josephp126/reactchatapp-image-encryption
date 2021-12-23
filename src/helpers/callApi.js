@@ -29,6 +29,9 @@ callApi.interceptors.response.use(
     }),
   (error) => {
     if (error.response.status === 403 || error.response.status === 401) {
+      console.log(
+        ")))))))))((((((((((((WHYWHYWHYWWEFWEFSDFSEF ESWFS DEF ASF ASDF ASDF ASDF"
+      );
       navigate("/logout", { tokenExpired: true });
     } else {
       return new Promise((resolve, reject) => {

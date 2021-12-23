@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import {
   Box,
   TextField,
@@ -23,14 +23,63 @@ import groupDays from "helpers/groupDays";
 import MessageList from "db/chat/MessageList";
 import moment from "moment";
 import MessageSettingBox from "../MessageSettingBox";
+import callApi from "helpers/callApi";
+import { GlobalContext } from "context/Provider";
+import { io } from "socket.io-client";
+import { AppUrl } from "config/env";
 
 // let chatHistoryList = [];
 
-function ChatBox({ currentChat, messages, sendMessage }) {
+function ChatBox({ history, match, location }) {
   const [newMessage, setNewMessage] = useState("");
+  const { authState } = useContext(GlobalContext);
+  const [messages, setMessages] = useState([]);
+  const [currentChat, setCurrentChat] = useState(null);
   const [chatHistoryList, setChatHistoryList] = useState([]);
   const [showWidgetId, setShowWidgetId] = useState(-1);
   const scrollRef = useRef();
+  const socketRef = useRef();
+
+  //send new message
+  const sendMessage = (newMessage) => {
+    let payload = {
+      friendId: currentChat.selectedChat.id,
+      sender: authState.data.id,
+      content: newMessage,
+    };
+
+    let pushMessage = {
+      ...payload,
+      sender: {
+        id: authState.data.id,
+        _id: authState.data._id,
+        username: authState.data.username,
+        avatar: authState.data.avatar,
+        avatarColor: authState.data.avatarColor,
+      },
+      type: "text",
+      // createdAt: new Date().toUTCString(),
+      // updatedAt: new Date().toUTCString(),
+      createdAt: new Date(
+        new Date().toString().split("GMT")[0] + " UTC"
+      ).toISOString(),
+      updatedAt: new Date(
+        new Date().toString().split("GMT")[0] + " UTC"
+      ).toISOString(),
+    };
+
+    console.log("pushMessage", pushMessage);
+    setMessages([...messages, pushMessage]);
+    socketRef.current.emit("sendMessage", pushMessage);
+    callApi
+      .post(`/message`, payload)
+      .then((res) => {
+        console.log("new message", res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const _onSearchMessage = () => {};
 
@@ -100,11 +149,9 @@ function ChatBox({ currentChat, messages, sendMessage }) {
             sx={{ mr: "auto", py: 1 }}
             className="chat-detail-message-con"
             onMouseEnter={() => {
-              // console.log("______Entered!!!");
               showWidgets(index);
             }}
             onMouseLeave={() => {
-              // console.log("++++++Leaved!!!");
               hideWidgets(index);
             }}
           >
@@ -170,14 +217,34 @@ function ChatBox({ currentChat, messages, sendMessage }) {
 
   useEffect(() => {
     let items = groupDays(messages);
-    console.log("sssss", scrollRef);
     items = items.reverse();
     setChatHistoryList([...items]);
-    console.log("chatHistoryList: ", chatHistoryList);
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   useEffect(() => {
+    console.log("++++++++++++++", location);
+    setCurrentChat(location.state.currentChat);
+    const getMessageHistory = async () => {
+      await callApi
+        .get(`/message/${match.params.channelId}`)
+        .then((res) => {
+          console.log(res.data);
+          setMessages(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    getMessageHistory();
+  }, []);
+
+  useEffect(() => {
+    socketRef.current = io.connect(AppUrl);
+    socketRef.current.on("getMessage", (pushMessage) => {
+      setMessages([...messages, pushMessage]);
+    });
+    return () => socketRef.current.disconnect();
   }, [messages]);
 
   return (
