@@ -9,6 +9,8 @@ import { styled } from "@mui/material/styles";
 import { friends, dmIcon } from "assets/images/image";
 import SelectChat from "context/actions/chat/SelectChat";
 import { GlobalContext } from "context/Provider";
+import AddFriendsSvg from "assets/images/svg/AddFriendsSvg";
+import { Link } from "react-router-dom";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -60,19 +62,22 @@ function Friends({ friendList, currentChat, _onSelectFriend }) {
 
   return (
     <Box>
-      <ListItemButton sx={{ height: 56, mb: 1, borderRadius: 2 }}>
-        <ListItemIcon>
-          <img src={friends} alt="friends-img" />
-        </ListItemIcon>
-        <ListItemText
-          primary="Friends"
-          primaryTypographyProps={{
-            color: "secondary",
-            fontWeight: "bold",
-            variant: "body2",
-          }}
-        />
-      </ListItemButton>
+      <Link to="/channels/@me" style={{ textDecoration: "none" }}>
+        <ListItemButton sx={{ height: 56, mb: 1, borderRadius: 2 }}>
+          <ListItemIcon>
+            {/* <img src={friends} alt="friends-img" /> */}
+            <AddFriendsSvg />
+          </ListItemIcon>
+          <ListItemText
+            primary="Friends"
+            primaryTypographyProps={{
+              color: "secondary",
+              fontWeight: "bold",
+              variant: "body2",
+            }}
+          />
+        </ListItemButton>
+      </Link>
 
       <Box
         sx={{
@@ -142,7 +147,7 @@ function Friends({ friendList, currentChat, _onSelectFriend }) {
           <ListItemButton
             selected={currentChat?.selectedChat.id === item.id}
             onClick={() => {
-              if(currentChat?.selectedChat.id === item.id) return;
+              if (currentChat?.selectedChat.id === item.id) return;
               _onSelectFriend(item);
             }}
             key={item._id}

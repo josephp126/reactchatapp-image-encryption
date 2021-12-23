@@ -20,6 +20,9 @@ import { useState } from "react";
 import { hashTag, logoMain } from "assets/images/image";
 import SettingDialog from "../SettingDialog";
 import Friends from "./Friends";
+import callApi from "helpers/callApi";
+import { GlobalContext } from "context/Provider";
+import { useHistory } from "react-router-dom";
 
 const channelList = [
   {
@@ -83,7 +86,12 @@ const FireNav = styled(List)({
   },
 });
 
-export default function SideBar({ friends, currentChat, selectCurrentChat }) {
+export default function SideBar() {
+  const history = useHistory();
+  const { authState } = React.useContext(GlobalContext);
+  const [friends, setFriends] = useState([]);
+  const [currentChat, setCurrentChat] = useState(null);
+
   const [openDM, setOpenDM] = useState(true);
   const [openChannel, setOpenChannel] = useState(true);
   const [selectedUserId, setSelectedUserId] = useState(0);
@@ -109,6 +117,31 @@ export default function SideBar({ friends, currentChat, selectCurrentChat }) {
     };
     selectCurrentChat(payload);
   };
+
+  const selectCurrentChat = (payload) => {
+    console.log("payload", payload);
+    setCurrentChat(payload);
+    history.push({
+      pathname: `/channels/${payload.selectedChat.id}`,
+      // search: "?the=search",
+      state: { currentChat: payload },
+    });
+  };
+
+  React.useEffect(() => {
+    const getFriends = async () => {
+      await callApi
+        .get(`/friend/${authState.data.id}`)
+        .then((res) => {
+          console.log("))))))________________(((((((((", res.data);
+          setFriends(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    getFriends();
+  }, []);
 
   return (
     <Box sx={{ display: "flex", width: "100%", height: "100%", maxWidth: 250 }}>

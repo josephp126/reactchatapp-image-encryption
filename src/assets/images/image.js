@@ -1,18 +1,18 @@
-import logoMainImg from './logo-main.png'
-import logoImg from './logo-icon.png'
-import userPhotoImg from './user-photo.png'
-import user1Img from './user1.png'
-import user2Img from './user2.png'
-import user3Img from './user3.png'
-import user4Img from './user4.png'
-import user5Img from './user5.png'
-import user6Img from './user6.png'
-import user7Img from './user7.png'
-import user8Img from './user8.png'
-import user9Img from './user9.png'
-import friendsImg from './friends.png'
-import hashTagImg from './hashTag.png'
-import dmIconImg from './dm-icon.png'
+import logoMainImg from "./logo-main.png";
+import logoImg from "./logo-icon.png";
+import userPhotoImg from "./user-photo.png";
+import user1Img from "./user1.png";
+import user2Img from "./user2.png";
+import user3Img from "./user3.png";
+import user4Img from "./user4.png";
+import user5Img from "./user5.png";
+import user6Img from "./user6.png";
+import user7Img from "./user7.png";
+import user8Img from "./user8.png";
+import user9Img from "./user9.png";
+import friendsImg from "./friends.png";
+import hashTagImg from "./hashTag.png";
+import dmIconImg from "./dm-icon.png";
 
 export const logoMain = logoMainImg;
 export const logo = logoImg;
