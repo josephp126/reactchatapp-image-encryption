@@ -1,12 +1,12 @@
 import React from "react";
 
-function AddFriendsSvg({ style }) {
+function AddFriendsSvg({ style, width, height }) {
   return (
     <svg
       classNmae="add-friend-svg"
       aria-hidden={false}
-      width={25}
-      height={25}
+      width={width || 25}
+      height={height || 25}
       viewBox="0 0 24 24"
       style={style}
     >

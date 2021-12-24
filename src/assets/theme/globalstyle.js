@@ -179,6 +179,60 @@ export const GlobalStyle = createGlobalStyle`
     z-index:1
   }
 
+  .friends-btn{
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    color: ${({ theme }) => theme.textColor};
+    transition: all ease 0.2s;
+  }
+
+  .friends-btn:hover{
+    background: ${({ theme }) => theme.friendBtnHoverColor};
+  }
+
+  .friends-btn.selected{
+    background: ${({ theme }) => theme.friendBtnHoverColor};
+    color: ${({ theme }) => theme.pureOppositeColor};
+  }
+
+  .friends-btn.add-friend{
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+    background: #3ba55d;
+  }
+  .friends-btn.add-friend.selected{
+    color: #3ba55d;
+    background: transparent;
+  }
+
+  .friend-list-con{
+    height: calc(100% - 50px);
+    overflow: auto;
+  }
+
+  .friend-list-item{
+    transition: all ease 0.2s;
+  }
+
+  .friend-list-item:hover{
+    cursor: pointer;
+    background: ${({ theme }) => theme.friendBtnHoverColor};
+  }
+
+
+  .setting-icon-con{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.mainPageBg};
+    cursor: pointer;
+  }
+
   .container{
     width: 100%;
     padding: 12px;

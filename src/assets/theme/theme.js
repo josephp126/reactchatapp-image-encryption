@@ -5,10 +5,13 @@ export const lightTheme = {
   borderColor: "1px solid #EAEAEA",
   chatSendBg: "#EAF5FF",
   dateBorderColor: "#ebebec",
-  hoveredMessageBg: '#f5f3f3',
-  chatSenderNameColor: '#31302E',
+  hoveredMessageBg: "#f5f3f3",
+  chatSenderNameColor: "#31302E",
   messageConfigBg: "#FDFDFD",
   messageConfigBorder: "#999999",
+  friendBtnHoverColor: "rgba(0,0,0,0.12)",
+  pureOppositeColor: "#000000",
+  errorColor: "#ff1476",
 };
 
 export const darkTheme = {
@@ -18,10 +21,13 @@ export const darkTheme = {
   borderColor: "1px solid #2C2D33",
   chatSendBg: "#003E76",
   dateBorderColor: "#42454A",
-  hoveredMessageBg: '#3a3a3a',
-  chatSenderNameColor: '#CCCCCC',
+  hoveredMessageBg: "#3a3a3a",
+  chatSenderNameColor: "#CCCCCC",
   messageConfigBg: "#323232",
   messageConfigBorder: "#35373b",
+  friendBtnHoverColor: "rgba(255,255,255,0.12)",
+  pureOppositeColor: "#ffffff",
+  errorColor: "#ff8da1",
 };
 
 export const theme = {
