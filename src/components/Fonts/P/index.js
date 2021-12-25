@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import React from "react";
 
-function BoldP({
+function P({
   children,
   uppercase,
   fontSize,
@@ -14,6 +14,7 @@ function BoldP({
   right,
   left,
   style,
+  capitalize,
 }) {
   return (
     <Typography
@@ -24,7 +25,11 @@ function BoldP({
       whiteSpace={nowrap ? "nowrap" : "unset"}
       sx={{
         ...style,
-        textTransform: uppercase ? "uppercase" : "capitalize",
+        textTransform: uppercase
+          ? "uppercase"
+          : capitalize
+          ? "capitalize"
+          : "unset",
         fontSize: fontSize ? fontSize : "15",
         fontWeight: bold ? "bold" : "normal",
         textAlign: center ? "center" : right ? "right" : "left",
@@ -35,4 +40,4 @@ function BoldP({
   );
 }
 
-export default BoldP;
+export default P;

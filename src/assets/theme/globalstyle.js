@@ -246,6 +246,10 @@ export const GlobalStyle = createGlobalStyle`
     padding-bottom: 0px!important;
   }
 
+  .pr-50-px-text-field .MuiOutlinedInput-root.MuiInputBase-root.MuiInputBase-colorPrimary.MuiInputBase-fullWidth.MuiInputBase-formControl.MuiInputBase-multiline {
+    padding-right: 50px;
+  }
+
   .container{
     width: 100%;
     padding: 12px;
