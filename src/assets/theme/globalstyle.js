@@ -222,6 +222,14 @@ export const GlobalStyle = createGlobalStyle`
     background: ${({ theme }) => theme.friendBtnHoverColor};
   }
 
+  .border-left-transparent-line{
+    border-left: 1px solid ${({ theme }) => theme.friendBtnHoverColor};
+  }
+  @media only screen and (max-width: 900px){
+    .border-left-transparent-line{
+      border-left: none;
+    }
+  }
 
   .setting-icon-con{
     display: flex;
@@ -231,6 +239,11 @@ export const GlobalStyle = createGlobalStyle`
     border-radius: 50%;
     background: ${({ theme }) => theme.mainPageBg};
     cursor: pointer;
+  }
+
+  .py-0{
+    padding-top: 0px!important;
+    padding-bottom: 0px!important;
   }
 
   .container{

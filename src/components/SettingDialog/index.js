@@ -23,6 +23,9 @@ import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 import AppearanceSetting from "./Appearance";
 import { useLocation, Link } from "react-router-dom";
+import MyAccount from "./MyAccount";
+import UserProfile from "./UserProfile";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -46,6 +49,7 @@ export default function SettingDialog({
       >
         <AppBar sx={{ position: "relative" }}>
           <Toolbar>
+            <SettingsIcon />
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               Settings
             </Typography>
@@ -60,9 +64,9 @@ export default function SettingDialog({
             </IconButton>
           </Toolbar>
         </AppBar>
-        <Grid container className="container h-100">
-          <Grid item xs={12} md={4}>
-            <Box sx={{ pt: 4 }}>
+        <Grid container className="container h-100 py-0">
+          <Grid item xs={12} md={4} sx={{ px: 2 }}>
+            <Box sx={{ pt: 4, position: "sticky", top: 0 }}>
               <Typography
                 textOverflow="ellipsis"
                 overflow="hidden"
@@ -204,18 +208,16 @@ export default function SettingDialog({
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={12} md={8}>
-            <Box sx={{ padding: 5 }}>
-              {selectedOption === "myAccount" && (
-                <Typography whiteSpace="nowrap" fontSize={15} fontWeight="bold">
-                  My Account
-                </Typography>
-              )}
-              {selectedOption === "userProfile" && (
-                <Typography whiteSpace="nowrap" fontSize={15} fontWeight="bold">
-                  User Profile
-                </Typography>
-              )}
+          <Grid
+            item
+            xs={12}
+            md={8}
+            sx={{ px: 2 }}
+            className="border-left-transparent-line"
+          >
+            <Box sx={{ padding: { md: 4, sm: 2 } }}>
+              {selectedOption === "myAccount" && <MyAccount />}
+              {selectedOption === "userProfile" && <UserProfile />}
               {selectedOption === "appearance" && <AppearanceSetting />}
             </Box>
           </Grid>

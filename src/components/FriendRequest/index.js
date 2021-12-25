@@ -113,15 +113,11 @@ function FriendRequest() {
               <Typography
                 typography="p"
                 overflow="hidden"
-                color={
-                  ThemeMode === "light"
-                    ? lightTheme.errorColor
-                    : darkTheme.errorColor
-                }
                 sx={{
                   fontSize: 14,
                   pb: 1,
                   pt: 1,
+                  color: "errorColor.main",
                 }}
               >
                 {errorMsgEmail}
@@ -149,7 +145,7 @@ function FriendRequest() {
               fontSize: 15,
               pb: 1,
               textAlign: "center",
-              mt: 4
+              mt: 4,
             }}
           >
             Onechain is waiting on friends. You don’t have to though!

@@ -1,5 +1,8 @@
 import logoMainImg from "./logo-main.png";
 import logoImg from "./logo-icon.png";
+import logo12pxImg from "./logo24px.png";
+import logo32pxImg from "./logo32px.png";
+import logo42pxImg from "./logo42px.png";
 import userPhotoImg from "./user-photo.png";
 import user1Img from "./user1.png";
 import user2Img from "./user2.png";
@@ -16,6 +19,9 @@ import dmIconImg from "./dm-icon.png";
 
 export const logoMain = logoMainImg;
 export const logo = logoImg;
+export const logo12px = logo12pxImg;
+export const logo32px = logo32pxImg;
+export const logo42px = logo42pxImg;
 export const userPhoto = userPhotoImg;
 export const user1 = user1Img;
 export const user2 = user2Img;

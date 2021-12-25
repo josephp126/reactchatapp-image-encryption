@@ -15,7 +15,7 @@ function FriendListItem() {
           alignItems: "center",
           justifyContent: "space-between",
           flex: 1,
-          py: 1,
+          py: 2,
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", flex: 1 }}>

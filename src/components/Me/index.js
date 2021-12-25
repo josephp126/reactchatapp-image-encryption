@@ -20,6 +20,7 @@ import FriendList from "components/FriendsList";
 import FriendListContainer from "components/FriendListContainer";
 import Send from "@mui/icons-material/Send";
 import FriendRequest from "components/FriendRequest";
+import ActiveBox from "components/Temp/ActiveBox";
 
 function Me() {
   const [selectedItem, setSelectedItem] = useState("Online");
@@ -141,17 +142,48 @@ function Me() {
           </Box>
         </Box>
       </Box>
-      {selectedItem === "Online" ? (
-        <FriendListContainer title="Online" />
-      ) : selectedItem === "All" ? (
-        <FriendListContainer title="All" />
-      ) : selectedItem === "Pending" ? (
-        <FriendListContainer title="Pending" />
-      ) : selectedItem === "Blocked" ? (
-        <FriendListContainer title="Blocked" />
-      ) : (
-        <FriendRequest />
-      )}
+      <Box
+        className="friend-list-con"
+        sx={{ paddingTop: 3, pl: 5, display: "flex" }}
+      >
+        <Box
+          sx={{
+            flex: {
+              lg: "0 1 70%",
+              md: "0 1 100%",
+              sm: "0 1 100%",
+              xs: "0 1 100%",
+            },
+            height: "100%",
+            overflow: "auto",
+            pr: 5,
+          }}
+        >
+          {selectedItem !== "Add Friend" && (
+            <Box sx={{ px: 1 }}>
+              <Typography
+                typography="p"
+                overflow="hidden"
+                sx={{ fontSize: 15, pb: 1 }}
+              >
+                {`${selectedItem} Friends - 28`}
+              </Typography>
+            </Box>
+          )}
+          {selectedItem === "Online" ? (
+            <FriendList />
+          ) : selectedItem === "All" ? (
+            <FriendList />
+          ) : selectedItem === "Pending" ? (
+            <FriendList />
+          ) : selectedItem === "Blocked" ? (
+            <FriendList />
+          ) : (
+            <FriendRequest />
+          )}
+        </Box>
+        <ActiveBox />
+      </Box>
     </Box>
   );
 }
