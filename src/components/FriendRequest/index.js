@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Box,
   TextField,
@@ -10,17 +10,22 @@ import {
   Divider,
 } from "@mui/material";
 import Send from "@mui/icons-material/Send";
+import CircularProgress from "@mui/material/CircularProgress";
 import { darkTheme, lightTheme } from "assets/theme/theme";
 import { useTheme } from "context/ThemeProvider";
 import { logo } from "assets/images/image";
+import { GlobalContext } from "context/Provider";
+import callApi from "helpers/callApi";
 
 function FriendRequest() {
+  const { authState } = useContext(GlobalContext);
   const [ThemeMode] = useTheme();
   const [friendEmail, setFriendEmail] = useState("");
   const [isErrorEmail, setIsErrorEmail] = useState(false);
   const [errorMsgEmail, setErrorMsgEmail] = useState("");
+  const [isRequesting, setIsRequesting] = useState(false);
 
-  const _onSendFriendRequest = () => {
+  const _onSendFriendRequest = async () => {
     if (friendEmail.trim() === "") {
       setIsErrorEmail(true);
       setErrorMsgEmail("Please input Email");
@@ -33,6 +38,36 @@ function FriendRequest() {
       setIsErrorEmail(false);
       setErrorMsgEmail("");
       console.log(friendEmail);
+      console.log(authState.data._id);
+      let payload = {
+        friendEmail: friendEmail,
+        senderId: authState.data._id,
+      };
+
+      setIsRequesting(true);
+      await callApi
+        .post("/friend", payload)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err.response.data.msg);
+          if (err?.response?.data?.msg === "impossible") {
+            setIsErrorEmail(true);
+            setErrorMsgEmail("It is impossible to send friend request to you.");
+          } else if (err?.response?.data?.msg === "alreadyFriend") {
+            setIsErrorEmail(true);
+            setErrorMsgEmail("You are already friends");
+          } else if (err?.response?.data?.msg === "notExist") {
+            setIsErrorEmail(true);
+            setErrorMsgEmail("Sorry, We cannot find such user on our server.");
+          } else {
+            setIsErrorEmail(true);
+            setErrorMsgEmail("Something went wrong, please try again later.");
+          }
+        });
+
+      setIsRequesting(false);
     }
   };
 
@@ -68,7 +103,8 @@ function FriendRequest() {
             pb: 1,
           }}
         >
-          You can add a friend with their OneChain Tag, It is cAsE sEnSitivE!
+          You can add a friend with their OneChain Email, Please input valid
+          email!
         </Typography>
         <Box className="w-100">
           <TextField
@@ -95,9 +131,9 @@ function FriendRequest() {
                     onClick={() => {
                       _onSendFriendRequest();
                     }}
-                    disabled={!friendEmail}
+                    disabled={!friendEmail || isRequesting}
                     variant="contained"
-                    endIcon={<Send />}
+                    endIcon={isRequesting ? <CircularProgress /> : <Send />}
                     sx={{ textTransform: "capitalize" }}
                     size="small"
                     disableElevation
