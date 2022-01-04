@@ -325,9 +325,6 @@ function ChatBox({ history, match, location }) {
         alignItems="center"
         sx={{ p: 2 }}
       >
-        <Box sx={{ pr: 2 }}>
-          <Avatar alt="user photo" src={userPhoto} />
-        </Box>
         <Box className="w-100">
           <TextField
             label="Write your message..."
