@@ -44,6 +44,7 @@ function ChatBox({ history, match, location }) {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const scrollRef = useRef();
   const socketRef = useRef();
+  const messageInput = useRef();
 
   //send new message
   const sendMessage = (newMessage) => {
@@ -152,6 +153,10 @@ function ChatBox({ history, match, location }) {
 
   const onEmojiClick = (emojiObject) => {
     setNewMessage(newMessage + emojiObject.emoji);
+    setShowEmojiPicker(false);
+    if (messageInput.current) {
+      messageInput.current.focus();
+    }
   };
 
   const renderChatHistory = () => {
@@ -354,6 +359,7 @@ function ChatBox({ history, match, location }) {
       >
         <Box className="w-100" sx={{ position: "relative" }}>
           <TextField
+            inputRef={messageInput}
             label="Write your message..."
             color="info"
             fullWidth

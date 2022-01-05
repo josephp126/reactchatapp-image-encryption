@@ -7,6 +7,8 @@ function EmojiPicker({ style, onClickOutsideOfPicker, onEmojiClick }) {
     <ClickAwayListener onClickAway={onClickOutsideOfPicker}>
       <div style={{ position: "absolute", bottom: 55, right: 50 }}>
         <Picker
+          disableAutoFocus={true}
+          native
           onEmojiClick={(e, emojiObject) => {
             onEmojiClick(emojiObject);
           }}
