@@ -116,6 +116,7 @@ export const GlobalStyle = createGlobalStyle`
     
   }
   .message-receive-con{
+    width: calc(100% - 57px);
     color: ${({ theme }) => theme.chatSenderNameColor};
   }
   
@@ -255,6 +256,10 @@ export const GlobalStyle = createGlobalStyle`
     padding: 12px;
     margin-right: auto;
     margin-left: auto;
+  }
+
+  .width-without-sidebar{
+    width: calc(100vw - 250px);
   }
 
 

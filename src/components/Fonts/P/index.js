@@ -30,7 +30,7 @@ function P({
           : capitalize
           ? "capitalize"
           : "unset",
-        fontSize: fontSize ? fontSize : "15",
+        fontSize: fontSize ? fontSize : 15,
         fontWeight: bold ? "bold" : "normal",
         textAlign: center ? "center" : right ? "right" : "left",
       }}

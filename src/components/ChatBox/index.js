@@ -27,6 +27,8 @@ import callApi from "helpers/callApi";
 import { GlobalContext } from "context/Provider";
 import { io } from "socket.io-client";
 import { AppUrl } from "config/env";
+import CryptoJS from "crypto-js";
+import P from "components/Fonts/P";
 
 // let chatHistoryList = [];
 
@@ -42,10 +44,12 @@ function ChatBox({ history, match, location }) {
 
   //send new message
   const sendMessage = (newMessage) => {
+    let encryptedNewMessage = CryptoJS.AES.encrypt(newMessage, "sammie");
+    encryptedNewMessage = encryptedNewMessage.toString();
     let payload = {
       friendId: currentChat.selectedChat.id,
       sender: authState.data.id,
-      content: newMessage,
+      content: encryptedNewMessage,
     };
 
     let pushMessage = {
@@ -69,7 +73,7 @@ function ChatBox({ history, match, location }) {
     };
 
     console.log("pushMessage", pushMessage);
-    setMessages([...messages, pushMessage]);
+    setMessages([...messages, { ...pushMessage, content: newMessage }]);
     socketRef.current.emit("sendMessage", pushMessage);
     callApi
       .post(`/message`, payload)
@@ -168,9 +172,11 @@ function ChatBox({ history, match, location }) {
                 <Box
                   display="flex"
                   flexDirection="column"
-                  className={"w-100 message-receive-con"}
+                  className={"message-receive-con"}
                 >
-                  <Typography>{chatItem.content}</Typography>
+                  <P style={{ overflowWrap: "break-word" }}>
+                    {chatItem.content}
+                  </P>
                 </Box>
               </Box>
             ) : (
@@ -194,7 +200,7 @@ function ChatBox({ history, match, location }) {
                 <Box
                   display="flex"
                   flexDirection="column"
-                  className="w-100 message-receive-con"
+                  className="message-receive-con"
                 >
                   <Box display="flex" alignItems="center">
                     <Typography fontWeight="bold" fontSize={16}>
@@ -204,7 +210,9 @@ function ChatBox({ history, match, location }) {
                       {moment(chatItem.createdAt, "HH:mm:ss").format("hh:mm A")}
                     </Typography>
                   </Box>
-                  <Typography>{chatItem.content}</Typography>
+                  <P style={{ overflowWrap: "break-word" }}>
+                    {chatItem.content}
+                  </P>
                 </Box>
               </Box>
             )}
@@ -229,7 +237,12 @@ function ChatBox({ history, match, location }) {
       await callApi
         .get(`/message/${match.params.channelId}`)
         .then((res) => {
-          console.log(res.data);
+          console.log("__+_+_+_+_+_+__+", res.data);
+          res.data.map((messageItem) => {
+            let decrypted = CryptoJS.AES.decrypt(messageItem.content, "sammie");
+            decrypted = decrypted.toString(CryptoJS.enc.Utf8);
+            messageItem.content = decrypted;
+          });
           setMessages(res.data);
         })
         .catch((err) => {
@@ -242,14 +255,16 @@ function ChatBox({ history, match, location }) {
   useEffect(() => {
     socketRef.current = io.connect(AppUrl);
     socketRef.current.on("getMessage", (pushMessage) => {
-      setMessages([...messages, pushMessage]);
+      let decrypted = CryptoJS.AES.decrypt(pushMessage.content, "sammie");
+      decrypted = decrypted.toString(CryptoJS.enc.Utf8);
+      setMessages([...messages, { ...pushMessage, content: decrypted }]);
     });
     return () => socketRef.current.disconnect();
   }, [messages]);
 
   return (
     <Box
-      className="w-100 h-100 primaryBg"
+      className="width-without-sidebar h-100 primaryBg"
       flexDirection="column"
       display="flex"
       flex={1}
