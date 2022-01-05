@@ -8,6 +8,7 @@ import {
   Badge,
   Avatar,
   Divider,
+  Fade,
 } from "@mui/material";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
@@ -29,6 +30,7 @@ import { io } from "socket.io-client";
 import { AppUrl } from "config/env";
 import CryptoJS from "crypto-js";
 import P from "components/Fonts/P";
+import EmojiPicker from "components/EmojiPicker";
 
 // let chatHistoryList = [];
 
@@ -39,6 +41,7 @@ function ChatBox({ history, match, location }) {
   const [currentChat, setCurrentChat] = useState(null);
   const [chatHistoryList, setChatHistoryList] = useState([]);
   const [showWidgetId, setShowWidgetId] = useState(-1);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const scrollRef = useRef();
   const socketRef = useRef();
 
@@ -92,6 +95,7 @@ function ChatBox({ history, match, location }) {
   };
 
   const _onToggleEmoji = () => {
+    setShowEmojiPicker(!showEmojiPicker);
     console.log("clicked toggle emoji icon");
   };
 
@@ -140,6 +144,14 @@ function ChatBox({ history, match, location }) {
 
   const hideWidgets = (index) => {
     setShowWidgetId(-1);
+  };
+
+  const onClickOutsideOfPicker = () => {
+    setShowEmojiPicker(false);
+  };
+
+  const onEmojiClick = (emojiObject) => {
+    setNewMessage(newMessage + emojiObject.emoji);
   };
 
   const renderChatHistory = () => {
@@ -340,7 +352,7 @@ function ChatBox({ history, match, location }) {
         alignItems="center"
         sx={{ p: 2 }}
       >
-        <Box className="w-100">
+        <Box className="w-100" sx={{ position: "relative" }}>
           <TextField
             label="Write your message..."
             color="info"
@@ -354,13 +366,6 @@ function ChatBox({ history, match, location }) {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton
-                    aria-label="emoji"
-                    onClick={_onToggleEmoji}
-                    onMouseDown={_onMouseDownToggleEmoji}
-                  >
-                    <InsertEmoticonIcon />
-                  </IconButton>
                   <IconButton
                     aria-label="upload Image"
                     onClick={_onUploadImage}
@@ -383,6 +388,13 @@ function ChatBox({ history, match, location }) {
                     <MoreHorizIcon />
                   </IconButton>
                   <IconButton
+                    aria-label="emoji"
+                    onClick={_onToggleEmoji}
+                    onMouseDown={_onMouseDownToggleEmoji}
+                  >
+                    <InsertEmoticonIcon />
+                  </IconButton>
+                  <IconButton
                     aria-label="send message"
                     onClick={_onSendMessage}
                     onMouseDown={_onMouseDownSendMessage}
@@ -392,7 +404,18 @@ function ChatBox({ history, match, location }) {
                 </InputAdornment>
               ),
             }}
+            onKeyDown={(e) => {
+              if (e.keyCode === 13) {
+                _onSendMessage();
+              }
+            }}
           />
+          {showEmojiPicker && (
+            <EmojiPicker
+              onClickOutsideOfPicker={() => onClickOutsideOfPicker()}
+              onEmojiClick={(emojiObject) => onEmojiClick(emojiObject)}
+            />
+          )}
         </Box>
       </Box>
     </Box>
