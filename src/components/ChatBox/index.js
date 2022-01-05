@@ -31,6 +31,7 @@ import { AppUrl } from "config/env";
 import CryptoJS from "crypto-js";
 import P from "components/Fonts/P";
 import EmojiPicker from "components/EmojiPicker";
+import ImageUpload from "./ImageUpload";
 
 // let chatHistoryList = [];
 
@@ -372,13 +373,7 @@ function ChatBox({ history, match, location }) {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton
-                    aria-label="upload Image"
-                    onClick={_onUploadImage}
-                    onMouseDown={_onMouseDownUploadImage}
-                  >
-                    <CameraAltIcon />
-                  </IconButton>
+                  <ImageUpload />
                   <IconButton
                     aria-label="upload Files"
                     onClick={_onUploadFiles}
