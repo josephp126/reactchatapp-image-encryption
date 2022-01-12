@@ -226,6 +226,27 @@ export const GlobalStyle = createGlobalStyle`
   .border-left-transparent-line{
     border-left: 1px solid ${({ theme }) => theme.friendBtnHoverColor};
   }
+
+  .buffered-image-con{
+    min-width: 150px;
+    max-widht: 150px;
+    min-height: 150px;
+    max-height: 150px;
+    width: 150px;
+    height: 150px;
+    padding: 8px;
+    border-radius: 4px;
+    background: ${({ theme }) => theme.mainPageBg};
+  }
+
+  .buffered-img{
+    border-radius: 3px;
+    max-width: 100%;
+    -o-object-fit: contain;
+    object-fit: contain;
+    
+  }
+
   @media only screen and (max-width: 900px){
     .border-left-transparent-line{
       border-left: none;

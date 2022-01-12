@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Box,
   TextField,
@@ -21,6 +21,8 @@ import FriendListContainer from "components/FriendListContainer";
 import Send from "@mui/icons-material/Send";
 import FriendRequest from "components/FriendRequest";
 import ActiveBox from "components/Temp/ActiveBox";
+import { GlobalContext } from "context/Provider";
+import callApi from "helpers/callApi";
 
 function Me() {
   const [selectedItem, setSelectedItem] = useState("Online");
@@ -37,6 +39,7 @@ function Me() {
   const _openHelpDialog = () => {
     console.log("_openHelpDialog");
   };
+
   return (
     <Box
       className="w-100 h-100 primaryBg"

@@ -13,6 +13,7 @@ import {
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import SendIcon from "@mui/icons-material/Send";
@@ -32,6 +33,7 @@ import CryptoJS from "crypto-js";
 import P from "components/Fonts/P";
 import EmojiPicker from "components/EmojiPicker";
 import ImageUpload from "./ImageUpload";
+import Tooltip from "@mui/material/Tooltip";
 
 // let chatHistoryList = [];
 
@@ -43,6 +45,8 @@ function ChatBox({ history, match, location }) {
   const [chatHistoryList, setChatHistoryList] = useState([]);
   const [showWidgetId, setShowWidgetId] = useState(-1);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [imageBuffer, setImageBuffer] = useState([]);
+  const [imageRawBuffer, setImageRawBuffer] = useState([]);
   const scrollRef = useRef();
   const socketRef = useRef();
   const messageInput = useRef();
@@ -158,6 +162,104 @@ function ChatBox({ history, match, location }) {
     if (messageInput.current) {
       messageInput.current.focus();
     }
+  };
+
+  const fileToDataUri = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        resolve(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+
+  const _onChangeImage = (e) => {
+    if (imageRawBuffer.length + e.target.files.length > 12) {
+      return;
+    } else {
+      for (let i = 0; i < e.target.files.length; i++) {
+        fileToDataUri(e.target.files[i]).then((dataUri) => {
+          e.target.files[i]["fileUri"] = dataUri;
+          console.log("}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}", e.target.files[i]);
+          setImageRawBuffer((prev) => [...prev, e.target.files[i]]);
+        });
+      }
+    }
+  };
+
+  const renderBufferedRawImages = () => {
+    var images = [];
+    for (let i = 0; i < imageRawBuffer.length; i++) {
+      images.push(
+        <Box
+          sx={{
+            position: "relative",
+            display: "flex",
+            flexDirection: "column",
+            mr: 2,
+          }}
+          className="buffered-image-con"
+        >
+          <Box
+            sx={{
+              overflow: "hidden",
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <img
+              src={imageRawBuffer[i].fileUri}
+              alt=""
+              className="buffered-img"
+            />
+          </Box>
+          <Box
+            sx={{
+              height: 20,
+              bgcolor: "third.main",
+              borderRadius: 3,
+              mt: "auto",
+              pl: 1,
+            }}
+          >
+            <P overflowHidden nowrap width100 ellipsis fontSize={12}>
+              {imageRawBuffer[i].name}
+            </P>
+          </Box>
+          <Box
+            sx={{
+              position: "absolute",
+              top: -12,
+              right: -10,
+            }}
+          >
+            <Tooltip
+              title="Remove"
+              arrow
+              placement="top"
+              TransitionComponent={Fade}
+            >
+              <IconButton
+                size="small"
+                onClick={() => removeOneBufferedImage(i)}
+                color="secondary"
+              >
+                <RemoveCircleIcon color="error" sx={{ cursor: "pointer" }} />
+              </IconButton>
+            </Tooltip>
+          </Box>
+        </Box>
+      );
+    }
+    return images;
+  };
+
+  const removeOneBufferedImage = (i) => {
+    let temp = [...imageRawBuffer];
+    temp.splice(i, 1);
+    setImageRawBuffer(temp);
   };
 
   const renderChatHistory = () => {
@@ -353,6 +455,17 @@ function ChatBox({ history, match, location }) {
         <Divider />
       </Box>
       <Box
+        sx={{
+          px: 2,
+          pt: 2,
+          display: "flex",
+          alignItems: "center",
+          overflowX: "auto",
+        }}
+      >
+        {imageRawBuffer.length > 0 && renderBufferedRawImages()}
+      </Box>
+      <Box
         className="chat-detail-message-send-con"
         display="flex"
         alignItems="center"
@@ -373,7 +486,7 @@ function ChatBox({ history, match, location }) {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <ImageUpload />
+                  <ImageUpload _onChangeImage={_onChangeImage} />
                   <IconButton
                     aria-label="upload Files"
                     onClick={_onUploadFiles}
