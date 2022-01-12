@@ -34,6 +34,8 @@ import P from "components/Fonts/P";
 import EmojiPicker from "components/EmojiPicker";
 import ImageUpload from "./ImageUpload";
 import Tooltip from "@mui/material/Tooltip";
+import axios from "axios";
+import { BasicUrl } from "config/env";
 
 // let chatHistoryList = [];
 
@@ -52,7 +54,7 @@ function ChatBox({ history, match, location }) {
   const messageInput = useRef();
 
   //send new message
-  const sendMessage = (newMessage) => {
+  const sendMessage = async (newMessage) => {
     let encryptedNewMessage = CryptoJS.AES.encrypt(newMessage, "sammie");
     encryptedNewMessage = encryptedNewMessage.toString();
     let payload = {
@@ -92,6 +94,28 @@ function ChatBox({ history, match, location }) {
       .catch((err) => {
         console.log(err);
       });
+    if (imageRawBuffer.length > 0) {
+      let formData = new FormData();
+      for (let i = 0; i < imageRawBuffer.length; i++) {
+        formData.append("images", imageRawBuffer[i]);
+      }
+      await axios({
+        method: "POST",
+        url: BasicUrl + "/upload/image",
+        data: formData,
+        headers: {
+          // Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+        mode: "cors",
+      })
+        .then((res) => {
+          console.log(`_______________upload images: `, res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   const _onSearchMessage = () => {};
@@ -180,7 +204,6 @@ function ChatBox({ history, match, location }) {
       for (let i = 0; i < e.target.files.length; i++) {
         fileToDataUri(e.target.files[i]).then((dataUri) => {
           e.target.files[i]["fileUri"] = dataUri;
-          console.log("}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}", e.target.files[i]);
           setImageRawBuffer((prev) => [...prev, e.target.files[i]]);
         });
       }
