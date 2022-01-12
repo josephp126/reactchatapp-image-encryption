@@ -49,56 +49,66 @@ function ChatBox({ history, match, location }) {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [imageBuffer, setImageBuffer] = useState([]);
   const [imageRawBuffer, setImageRawBuffer] = useState([]);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
   const scrollRef = useRef();
   const socketRef = useRef();
   const messageInput = useRef();
 
   //send new message
   const sendMessage = async (newMessage) => {
-    let encryptedNewMessage = CryptoJS.AES.encrypt(newMessage, "sammie");
-    encryptedNewMessage = encryptedNewMessage.toString();
-    let payload = {
-      friendId: currentChat.selectedChat.id,
-      sender: authState.data.id,
-      content: encryptedNewMessage,
-    };
+    if (newMessage.trim() !== "") {
+      let encryptedNewMessage = CryptoJS.AES.encrypt(newMessage, "sammie");
+      encryptedNewMessage = encryptedNewMessage.toString();
+      let payload = {
+        friendId: currentChat.selectedChat.id,
+        sender: authState.data.id,
+        content: encryptedNewMessage,
+      };
 
-    let pushMessage = {
-      ...payload,
-      sender: {
-        id: authState.data.id,
-        _id: authState.data._id,
-        username: authState.data.username,
-        avatar: authState.data.avatar,
-        avatarColor: authState.data.avatarColor,
-      },
-      type: "text",
-      // createdAt: new Date().toUTCString(),
-      // updatedAt: new Date().toUTCString(),
-      createdAt: new Date(
-        new Date().toString().split("GMT")[0] + " UTC"
-      ).toISOString(),
-      updatedAt: new Date(
-        new Date().toString().split("GMT")[0] + " UTC"
-      ).toISOString(),
-    };
+      let pushMessage = {
+        ...payload,
+        sender: {
+          id: authState.data.id,
+          _id: authState.data._id,
+          username: authState.data.username,
+          avatar: authState.data.avatar,
+          avatarColor: authState.data.avatarColor,
+        },
+        type: "text",
+        // createdAt: new Date().toUTCString(),
+        // updatedAt: new Date().toUTCString(),
+        createdAt: new Date(
+          new Date().toString().split("GMT")[0] + " UTC"
+        ).toISOString(),
+        updatedAt: new Date(
+          new Date().toString().split("GMT")[0] + " UTC"
+        ).toISOString(),
+      };
 
-    console.log("pushMessage", pushMessage);
-    setMessages([...messages, { ...pushMessage, content: newMessage }]);
-    socketRef.current.emit("sendMessage", pushMessage);
-    callApi
-      .post(`/message`, payload)
-      .then((res) => {
-        console.log("new message", res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      console.log("pushMessage", pushMessage);
+      setMessages([...messages, { ...pushMessage, content: newMessage }]);
+      socketRef.current.emit("sendMessage", pushMessage);
+      callApi
+        .post(`/message`, payload)
+        .then((res) => {
+          console.log("new message", res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
     if (imageRawBuffer.length > 0) {
       let formData = new FormData();
       for (let i = 0; i < imageRawBuffer.length; i++) {
         formData.append("images", imageRawBuffer[i]);
       }
+      formData.append("type", "message");
+      formData.append("friendId", currentChat.selectedChat.id);
+      formData.append("sender", authState.data.id);
+      formData.append("content", null);
+
+      setImageRawBuffer([]);
+      setIsUploadingImage(true);
       await axios({
         method: "POST",
         url: BasicUrl + "/upload/image",
@@ -115,6 +125,7 @@ function ChatBox({ history, match, location }) {
         .catch((err) => {
           console.log(err);
         });
+      setIsUploadingImage(false);
     }
   };
 
@@ -158,7 +169,6 @@ function ChatBox({ history, match, location }) {
   };
 
   const _onSendMessage = () => {
-    if (newMessage.trim() == "") return;
     sendMessage(newMessage);
     setNewMessage("");
     console.log("clicked upload File icon");
@@ -484,9 +494,14 @@ function ChatBox({ history, match, location }) {
           display: "flex",
           alignItems: "center",
           overflowX: "auto",
+          justifyContent: isUploadingImage ? "center" : "unset",
         }}
       >
-        {imageRawBuffer.length > 0 && renderBufferedRawImages()}
+        {isUploadingImage ? (
+          <P>Uploading...</P>
+        ) : (
+          imageRawBuffer.length > 0 && renderBufferedRawImages()
+        )}
       </Box>
       <Box
         className="chat-detail-message-send-con"
