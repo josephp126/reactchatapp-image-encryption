@@ -36,6 +36,7 @@ import ImageUpload from "./ImageUpload";
 import Tooltip from "@mui/material/Tooltip";
 import axios from "axios";
 import { BasicUrl } from "config/env";
+import ImageView from "./ImageView";
 
 // let chatHistoryList = [];
 
@@ -299,6 +300,82 @@ function ChatBox({ history, match, location }) {
     return chatHistoryList.map((chatItem, index) => {
       if (chatItem.type === "day") {
         return <DateDivider date={chatItem.date} />;
+      } else if (chatItem.type === "image") {
+        return (
+          <Box
+            ref={scrollRef}
+            sx={{ mr: "auto", py: 1 }}
+            className="chat-detail-message-con"
+            onMouseEnter={() => {
+              showWidgets(index);
+            }}
+            onMouseLeave={() => {
+              hideWidgets(index);
+            }}
+          >
+            {chatHistoryList[index - 1].sender.id ==
+            chatHistoryList[index].sender.id ? (
+              <Box display="flex" alignItems="flex-start" sx={{ px: 2 }}>
+                <Box sx={{ width: 60 }}>
+                  <Typography fontSize={14} sx={{ paddingLeft: 0.8 }}>
+                    {index == showWidgetId &&
+                      moment(chatItem.createdAt, "HH:mm:ss").format("hh:mm")}
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  className={"message-receive-con"}
+                >
+                  <P style={{ overflowWrap: "break-word" }}>
+                    {chatItem.content.map((v) => {
+                      return <ImageView imageData={v} />;
+                    })}
+                  </P>
+                </Box>
+              </Box>
+            ) : (
+              <Box display="flex" alignItems="flex-start" sx={{ px: 2 }}>
+                <Box sx={{ width: 60 }}>
+                  {chatItem.sender.avatar == "" ? (
+                    <Avatar
+                      sx={{
+                        bgcolor: chatItem.sender.avatarColor,
+                      }}
+                    >
+                      {chatItem.sender.username[0].toUpperCase()}
+                    </Avatar>
+                  ) : (
+                    <Avatar
+                      alt={chatItem.sender.username}
+                      src={chatItem.sender.avatar}
+                    />
+                  )}
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  className="message-receive-con"
+                >
+                  <Box display="flex" alignItems="center">
+                    <Typography fontWeight="bold" fontSize={16}>
+                      {chatItem.sender.username}
+                    </Typography>
+                    <Typography fontSize={14} sx={{ paddingLeft: 0.8 }}>
+                      {moment(chatItem.createdAt, "HH:mm:ss").format("hh:mm A")}
+                    </Typography>
+                  </Box>
+                  <P style={{ overflowWrap: "break-word" }}>
+                    {chatItem.content.map((v) => {
+                      return <ImageView imageData={v} />;
+                    })}
+                  </P>
+                </Box>
+              </Box>
+            )}
+            {index == showWidgetId && <MessageSettingBox />}
+          </Box>
+        );
       } else {
         return (
           <Box
@@ -392,9 +469,16 @@ function ChatBox({ history, match, location }) {
         .then((res) => {
           console.log("__+_+_+_+_+_+__+", res.data);
           res.data.map((messageItem) => {
-            let decrypted = CryptoJS.AES.decrypt(messageItem.content, "sammie");
-            decrypted = decrypted.toString(CryptoJS.enc.Utf8);
-            messageItem.content = decrypted;
+            if (messageItem.type == "text") {
+              let decrypted = CryptoJS.AES.decrypt(
+                messageItem.content,
+                "sammie"
+              );
+              decrypted = decrypted.toString(CryptoJS.enc.Utf8);
+              messageItem.content = decrypted;
+            } else if (messageItem.type == "image") {
+              messageItem.content = JSON.parse(messageItem.content);
+            }
           });
           setMessages(res.data);
         })
