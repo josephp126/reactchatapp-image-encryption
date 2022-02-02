@@ -19,5 +19,4 @@ const Logout = () => {
     </Backdrop>
   );
 };
-
 export default Logout;
